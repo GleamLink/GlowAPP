@@ -1,0 +1,48 @@
+.leftBar {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    background-color: #191919;
+}
+
+.leftbarList {
+    padding: 10px 0;
+    width: 100%;
+}
+
+.leftbarList .leftbarListItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    transition: 0.3s;
+    padding: 10px 15px;
+    margin: 2px 5px;
+}
+
+.leftbarList .leftbarListItem:hover {
+    cursor: pointer;
+    background-color: #252525;
+}
+.leftbarList .leftbarListItem:hover > span {
+    color: white;
+}
+.leftbarList .leftbarListItem:hover > .icon {
+    color: white;
+}
+
+.leftbarList .leftbarListItem .icon {
+    transition: 0.3s;
+    color: #414141;
+    font-size: 20px;
+}
+
+.leftbarList .leftbarListItem span {
+    transition: 0.3s;
+    color: white;
+    color: #5a5a5a;
+    font-size: 20px;
+    margin-left: 10px;
+    font-weight: 600;
+}

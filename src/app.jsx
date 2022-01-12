@@ -1,20 +1,16 @@
-import { Logo } from './logo'
+import "./_app.scss"
+
+import Home from "./routes/home/Home";
+import Login from "./routes/login/Login";
+
+import Router from 'preact-router';
 
 export function App(props) {
   return (
-    <>
-      <Logo />
-      <p>Hello Vite + Preact!</p>
-      <p>
-        <a
-          class="link"
-          href="https://preactjs.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Preact
-        </a>
-      </p>
-    </>
+    <Router>
+      <Home path="/" />
+      <Login path="/login" />
+    </Router>
+    
   )
 }
