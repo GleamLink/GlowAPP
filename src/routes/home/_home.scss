@@ -7,7 +7,7 @@
 .homePage {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
     height: 100%;
 }
@@ -16,4 +16,62 @@
     position: relative;
     top: 100px;
     justify-content: center;
+}
+
+// WELCOME TITLE
+
+.homePage .welcomeTitle {
+    position: absolute;
+    align-self: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+// FRIENDS
+
+.friends {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-left: 1px solid #2d2d30;
+    border-radius: 2px;
+    padding-left: 10px;
+    width: 20%;
+    height: 90%;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.friends .friend {
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-top: 1px solid #2d2d30;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.friends .friend .messageSend {
+    color: #414141;
+    display: flex;
+    justify-content: center;
+    vertical-align: baseline;
+    position: absolute;
+    right: 10px;
+}
+
+.friends .friend:hover {
+    background-color: #2d2d30;
+}
+
+.friends .friend .profileName {
+    position: absolute;
+    left: 50px;
+    margin-left: 10px;
+}
+
+.friends .friend .profilePicture {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
 }

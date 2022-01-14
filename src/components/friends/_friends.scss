@@ -1,0 +1,33 @@
+.friend {
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-top: 1px solid #2d2d30;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.friend .messageSend {
+    color: gray;
+    display: flex;
+    justify-content: center;
+    vertical-align: baseline;
+    position: absolute;
+    right: 10px;
+}
+
+.friend:hover {
+    background-color: #2d2d30;
+}
+
+.friend .profileName {
+    position: absolute;
+    left: 50px;
+    margin-left: 10px;
+}
+
+.friend .profilePicture {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}

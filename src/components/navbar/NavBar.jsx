@@ -1,5 +1,5 @@
 import Option from "./option/Option";
-import "./_leftbar.scss"
+import "./_navbar.scss"
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 

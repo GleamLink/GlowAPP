@@ -1,0 +1,21 @@
+.onlineStatus {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    border: 3px solid #252526;
+    border-radius: 50%;
+    top: 10px;
+    right: 10px;
+    background-color: green;
+}
+
+.offlineStatus {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    border: 3px solid #252526;
+    border-radius: 50%;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(109, 109, 109);
+}
