@@ -1,14 +1,13 @@
 import Option from "./option/Option";
 import "./_leftbar.scss"
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PeopleIcon from '@material-ui/icons/People';
-import ContactsIcon from '@material-ui/icons/Contacts';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
-
-function alertt() {
-    alert("Oeoe")
-}
 
 function LeftBar() {
     return (
@@ -22,7 +21,7 @@ function LeftBar() {
                 </li>
                 <li>
                     <a href="/friends" className="leftbarListItem">
-                        <ContactsIcon className="icon"/>
+                        <PeopleAltIcon className="icon"/>
                         <span>Friends</span>
                     </a>
                     

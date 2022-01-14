@@ -1,5 +1,5 @@
 import React from "react";
-import LeftBar from "../../components/leftbar/LeftBar";
+import LeftBar from "../../components/leftbar/NavBar";
 import "./_home.scss";
 
 function Home() {
