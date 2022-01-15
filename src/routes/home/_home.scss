@@ -27,6 +27,18 @@
     margin-top: 20px;
 }
 
+// LOGO
+
+.homePage .homeLogo {
+    position: absolute;
+    align-self: center;
+    // border: -50px solid green;
+    top: 200px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
 // FRIENDS
 
 .friends {

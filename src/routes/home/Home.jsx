@@ -13,6 +13,7 @@ function Home() {
             <LeftBar />
             <div className="homePage">
                 <h1 className="welcomeTitle">Welcome {"C3cemel"}</h1>
+                <img src="src/assets/img/logo-transparant.png" alt="g" className="homeLogo" />
                 <div className="friends">
                     <Friends username="chronic" avatarUrl="https://cdn.discordapp.com/avatars/471238565033148427/121f385ebe564b8441ec617ced1e5d4e.webp" status="online" />
                     <Friends username="SkyX" avatarUrl="https://cdn.discordapp.com/avatars/374872431090991106/2d68f66cd2dcd97e2632e84cbd927a84.webp" status="online" />
