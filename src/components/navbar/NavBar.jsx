@@ -34,16 +34,16 @@ function LeftBar() {
                     
                 </li>
                 <li>
-                    <a href="/servers" className="leftbarListItem">
+                    <a href="/communities" className="leftbarListItem">
                         <PeopleIcon className="icon"/>
-                        <span>Servers</span>
+                        <span>Communities</span>
                     </a>
                     
                 </li>
                 <li>
-                    <a href="/tune" className="leftbarListItem">
+                    <a href="/tunes" className="leftbarListItem">
                         <PlayCircleFilledIcon className="icon"/>
-                        <span>Tune</span>
+                        <span>Tunes</span>
                     </a>
                     
                 </li>
