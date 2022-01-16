@@ -10,6 +10,10 @@ function StatusShower(props) {
         return (
             <div className="offlineStatus" />
         );
+    else if(status == "dnd")
+        return (
+            <div className="dndStatus" />
+        );
 }
 
 export default StatusShower;
