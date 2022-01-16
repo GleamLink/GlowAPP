@@ -1,9 +1,9 @@
 import StatusShower from "../statusshower/StatusShower";
-import "./_friends.scss"
+import "./_cfriends.scss"
 
 import MessageIcon from '@material-ui/icons/Message';
 
-function Friends(props) {
+function CFriends(props) {
     return (
         <div className="friend">
             <img className="profilePicture" src={props.avatarUrl} alt="" />
@@ -14,4 +14,4 @@ function Friends(props) {
     );
 }
 
-export default Friends;
+export default CFriends;
