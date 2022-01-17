@@ -9,7 +9,7 @@ function Home() {
         <div className="home">
             <LeftBar />
             <div className="homePage">
-                <h1 className="welcomeTitle">Welcome {"C3cemel"}</h1>
+                <h1 className="welcomeTitle">Welcome {"User"}</h1>
                 <img src="src/assets/img/logo-transparant.png" alt="glowLogo" className="homeLogo" />
                 <div className="friends">
                     {/* <p className="paragraphOnlineFriends">Online friends - 4</p> */}
