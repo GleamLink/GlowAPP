@@ -10,7 +10,7 @@ function Home() {
             <LeftBar />
             <div className="homePage">
                 <h1 className="welcomeTitle">Welcome {"C3cemel"}</h1>
-                <img src="src/assets/img/logo-transparant.png" alt="glowLogo" className="homeLogo" />
+                <img src="../../assets/img/logo-transparant.png" alt="glowLogo" className="homeLogo" />
                 <div className="friends">
                     {/* <p className="paragraphOnlineFriends">Online friends - 4</p> */}
                     <CFriends username="chronic" avatarUrl="https://cdn.discordapp.com/avatars/471238565033148427/121f385ebe564b8441ec617ced1e5d4e.webp" status="online" />
