@@ -2,7 +2,7 @@ import LeftBar from "../../components/navbar/NavBar";
 import "./_home.scss";
 
 // Material Icons
-import CFriends from "../../components/cfriends/cFriends";
+import CFriends from "../../components/cfriends/CFriends";
 
 function Home() {
     return (
