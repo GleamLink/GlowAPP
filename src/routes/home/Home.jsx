@@ -1,4 +1,4 @@
-import LeftBar from "../../components/navbar/NavBar";
+import NavBar from "../../components/navbar/NavBar";
 import "./_home.scss";
 
 // Material Icons
@@ -7,7 +7,7 @@ import CFriends from "../../components/cfriends/CFriends";
 function Home() {
     return (
         <div className="home">
-            <LeftBar />
+            <NavBar />
             <div className="homePage">
                 <h1 className="welcomeTitle">Welcome {"C3cemel"}</h1>
                 <img src="http://api.glowapp.eu/forest/assets/logos/logo-transparant.png" alt="glowLogo" className="homeLogo" />

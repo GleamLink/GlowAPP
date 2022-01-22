@@ -9,7 +9,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
 
-function LeftBar() {
+function NavBar() {
     return (
         <div className="leftBar">
             <ul className="leftbarList">
@@ -52,4 +52,4 @@ function LeftBar() {
     );
 }
 
-export default LeftBar;
+export default NavBar;
