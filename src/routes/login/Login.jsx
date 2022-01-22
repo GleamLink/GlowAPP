@@ -11,9 +11,18 @@ import react from "react"
 import { render } from "preact";
 
 function Login() {
-    const onClickHandler = () => {
+    const onClickHandler = async () => {
         console.log("HEY")
-        api.post('/auth/login').then(res => console.log(res))
+        try {
+            const res = await api.post('/auth/login', {
+                "email": "c3cemel@gmail.com",
+                "password": "c3cemel"
+            })
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     return (
