@@ -9,16 +9,19 @@ import Tunes from "./routes/tunes/Tunes";
 
 import Router from 'preact-router';
 
+import { CookiesProvider } from 'react-cookie';
+
 export function App(props) {
   return (
-    <Router>
-      <Home path="/" />
-      <Login path="/login" />
-      <Friends path="/friends" />
-      <Posts path="/posts" />
-      <Communities path="/communities" />
-      <Tunes path="/tunes" />
-    </Router>
-    
+    <CookiesProvider>
+      <Router>
+        <Home path="/" />
+        <Login path="/login" />
+        <Friends path="/friends" />
+        <Posts path="/posts" />
+        <Communities path="/communities" />
+        <Tunes path="/tunes" />
+      </Router>
+    </CookiesProvider>
   )
 }
