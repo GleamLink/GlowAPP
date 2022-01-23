@@ -18,7 +18,7 @@ function Login() {
                 "email": "c3cemel@gmail.com",
                 "password": "c3cemel"
             })
-            console.log(res)
+            console.log(res.json())
         } catch (error) {
             console.log(error)
         }
