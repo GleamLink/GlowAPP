@@ -1,7 +1,10 @@
 import axios from "axios"
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: "https://api.glowapp.eu/api/",
+    headers: {
+        'Authorization': 'Bearer ' + token
+    }
 })
 
 export const getUser = () => {

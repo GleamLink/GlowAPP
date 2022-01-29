@@ -2,6 +2,8 @@ import "./_app.scss"
 
 import { lazy, Suspense } from "preact/compat";
 
+import { useEffect } from "preact/hooks";
+
 const Home = lazy(() => import("./routes/home/Home"));
 const Login = lazy(() => import("./routes/login/Login"));
 const Friends = lazy(() => import("./routes/friends/Friends"));
@@ -14,8 +16,18 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
 import { CookiesProvider } from 'react-cookie';
+import { api, getToken, setUserSession } from "./Utils/Common";
 
 export function App(props) {
+  useEffect(() => {
+    const token = getToken()
+
+    if(!token) return;
+
+    api.get('/auth/account').then(res => {
+      setUserSession(res.data.token)
+    })
+  })
   return (
       <Router>
         <Suspense>

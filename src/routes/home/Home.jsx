@@ -10,7 +10,7 @@ function Home() {
         <div className="home">
             <NavBar />
             <div className="homePage">
-                <h1 className="welcomeTitle">Welcome {getUser().email}</h1>
+                <h1 className="welcomeTitle">Welcome </h1>
                 <img src="http://api.glowapp.eu/forest/assets/logos/logo-transparant.png" alt="glowLogo" className="homeLogo" />
                 <div className="friends">
                     {/* <p className="paragraphOnlineFriends">Online friends - 4</p> */}
