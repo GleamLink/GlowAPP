@@ -6,35 +6,49 @@ const api = axios.create({
 })
 
 import "./_login.scss";
-import { useCookies, CookiesProvider } from "react-cookie";
 import react from "react"
-import { render } from "preact";
 
 function Login() {
     const onClickHandler = async () => {
-        console.log("HEY")
-        try {
-            const res = await api.post('/auth/login', {
-                "email": "c3cemel@gmail.com",
-                "password": "c3cemel"
-            })
-            console.log(res.json())
-        } catch (error) {
-            console.log(error)
-        }
-        
+        api.post("/auth/login", {
+            email: email,
+            password: password
+        }).then(res => {
+            console.log(res)
+        }).catch(err => console.log(err))
     }
+
+    const [email, setEmail] = react.useState('')
+    const [password, setPassword] = react.useState('')
+    const [loading, setLoading] = react.useState(false)
 
     return (
         <>
             <NavBar />
             <h1 className="title">Login</h1>
             {/* <form className="loginForm"> */}
-                <input className="loginTextInput" type="text" placeholder="Username"/>
-                <input className="loginTextInput" type="text" placeholder="Password" />
-                <button className="loginButtonInput" onClick={onClickHandler}>Login</button>
+                <input
+                    type="text"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="loginTextInput"
+                    placeholder="Username"
+                />
+                <input
+                    type="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="loginTextInput"
+                    placeholder="Password"
+                />
+                <input
+                    type="button"
+                    value={loading ? "Loading..." : "Login"}
+                    disabled={loading}
+                    className="loginButtonInput"
+                    onClick={onClickHandler}
+                >Login</input>
             {/* </form> */}
-            <button onClick={this.onClickHandler} style={"width: 100px"}>HEY</button>
         </>
     );
 }
