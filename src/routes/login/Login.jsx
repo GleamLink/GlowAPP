@@ -11,6 +11,7 @@ import react from "react"
 
 function Login() {
     const onClickHandler = async () => {
+        setError(null)
         setLoading(true)
         api.post("/auth/login", {
             email: email,
@@ -19,18 +20,25 @@ function Login() {
             setLoading(false)
             setUserSession(res.data.token)
             this.props.history.push('/')
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            setLoading(false)
+            console.log(err.response)
+            if(err.response.status === 401 || err.response.status === 400) {
+                setError(err.response.data.message)
+            }
+        })
     }
 
     const [email, setEmail] = react.useState('')
     const [password, setPassword] = react.useState('')
+    const [error, setError] = react.useState(null)
     const [loading, setLoading] = react.useState(false)
 
     return (
         <>
             <NavBar />
             <h1 className="title">Login</h1>
-            {/* <form className="loginForm"> */}
+            <div className="loginForm">
                 <input
                     type="text"
                     value={email}
@@ -52,7 +60,8 @@ function Login() {
                     className="loginButtonInput"
                     onClick={onClickHandler}
                 >Login</input>
-            {/* </form> */}
+                {error && <p className="error">{error}</p>}
+            </div>
         </>
     );
 }

@@ -1,11 +1,22 @@
+import axios from "axios"
+
+const api = axios.create({
+    baseURL: "https://api.glowapp.eu/api/",
+})
+
 export const getUser = () => {
-    const userStr = sessionStorage.getItem("user")
+    const userStr = api.get("/auth/account")
     if (userStr) return JSON.parse(userStr)
     else return null
 }
 
 export const getToken = () => {
     return sessionStorage.getItem("token") || null
+}
+
+export const isLogged = () => {
+    if(getToken() != null) return true
+    else return false
 }
 
 export const setUserSession = (token) => {

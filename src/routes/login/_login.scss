@@ -26,6 +26,10 @@ button:focus {
     .loginButtonInput:focus {
         background-color: orange;
     }
+    .error {
+        color: red;
+        margin-top: 20px;
+    }
 }
 
 .title {

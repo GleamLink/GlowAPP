@@ -3,13 +3,14 @@ import "./_home.scss";
 
 // Material Icons
 import CFriends from "../../components/cfriends/CFriends";
+import { getUser } from "../../Utils/Common";
 
 function Home() {
     return (
         <div className="home">
             <NavBar />
             <div className="homePage">
-                <h1 className="welcomeTitle">Welcome {"C3cemel"}</h1>
+                <h1 className="welcomeTitle">Welcome {getUser().email}</h1>
                 <img src="http://api.glowapp.eu/forest/assets/logos/logo-transparant.png" alt="glowLogo" className="homeLogo" />
                 <div className="friends">
                     {/* <p className="paragraphOnlineFriends">Online friends - 4</p> */}
