@@ -1,54 +1,81 @@
-.leftBar {
-    // height: 5%;
+.navBar {
     width: 100%;
     display: flex;
     flex-direction: row;
     background-color: #1e1e1e;
+    .checkBtn {
+        font-size: 25px;
+        color: white;
+        margin: auto;
+        margin: 10px;
+        cursor: pointer;
+        display: none;
+    }
+    .leftbarList {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        .leftbarListItem {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 10px;
+            transition: 0.3s;
+            padding: 10px 15px;
+            margin: 2px 3px;
+            text-decoration: none;
+        
+            .icon {
+                transition: 0.3s;
+                color: #414141;
+                font-size: 20px;
+            }
+            span {
+                transition: 0.3s;
+                color: #5a5a5a;
+                font-size: 15px;
+                margin-left: 10px;
+                font-weight: 600;
+            }
+        }
+        .leftbarListItem:hover, .leftbarListItem:hover > span, :hover > .icon {
+            cursor: pointer;
+            background-color: #252525;
+            color: white;
+        }
+    }
 }
 
-.leftbarList {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
-}
-
-.leftBar .separator {
-    margin: 10px 30px;
-    border-top: 1px solid rgb(126, 126, 126);
-}
-
-.leftbarList .leftbarListItem, .leftbarProfile {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 10px;
-    transition: 0.3s;
-    padding: 10px 15px;
-    margin: 2px 3px;
-    text-decoration: none;
-}
-
-.leftbarList .leftbarListItem:hover {
-    cursor: pointer;
-    background-color: #252525;
-}
-.leftbarList .leftbarListItem:hover > span {
-    color: white;
-}
-.leftbarList .leftbarListItem:hover > .icon {
-    color: white;
-}
-
-.leftbarList .leftbarListItem .icon, .leftbarProfile .icon {
-    transition: 0.3s;
-    color: #414141;
-    font-size: 20px;
-}
-
-.leftbarList .leftbarListItem span, .leftbarProfile span {
-    transition: 0.3s;
-    color: #5a5a5a;
-    font-size: 15px;
-    margin-left: 10px;
-    font-weight: 600;
-}
+// @media screen and (max-width: 600px) {
+//     .navBar {
+//         position: fixed;
+//         height: 100%;
+//         z-index: 1;
+//         width: 100%;
+//         background-color: #1e1e1e;
+//         #check .checkBtn {
+//             display: block;
+//         }
+//         #check:checked ~ .leftbarList {
+//             left: 0;
+//         }
+//         .leftbarList {
+//             width: 100%;
+//             height: 100%;
+//             background-color: #252525;
+//             list-style-type: none;
+//             display: flex;
+//             flex-direction: column;
+//             left: -100%;
+//             transition: all .5s;
+//             li {
+//                 flex-direction: column;
+//                 display: block;
+//                 margin: 20px 0;
+//                 line-height: 2px;
+//             }
+            
+//         }
+//     }
+    
+//   }
