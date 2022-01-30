@@ -14,7 +14,9 @@ button:focus {
         border-radius: 20px;
         padding: 20px;
         border: none;
-        width: 20%;
+        min-width: 20%;
+        max-width: 50%;
+        height: calc(1em);
     }
     .loginButtonInput {
         position: relative;
@@ -40,4 +42,11 @@ button:focus {
     align-self: center;
     text-align: center;
     margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input {
+        width: 100%;
+        margin-top: 0;
+    }
 }

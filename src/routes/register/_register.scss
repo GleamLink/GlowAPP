@@ -14,7 +14,8 @@ button:focus {
         border-radius: 20px;
         padding: 20px;
         border: none;
-        width: 20%;
+        min-width: 30%;
+        max-width: 80%;
     }
     .loginButtonInput {
         position: relative;
