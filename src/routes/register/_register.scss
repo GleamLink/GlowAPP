@@ -2,7 +2,7 @@ button:focus {
     background-color: orange;
 }
 
-.loginForm {
+.signupForm {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -28,6 +28,10 @@ button:focus {
     }
     .error {
         color: red;
+        margin-top: 20px;
+    }
+    .success {
+        color: rgb(4, 170, 26);
         margin-top: 20px;
     }
     .noAcc {

@@ -6,43 +6,60 @@ const api = axios.create({
     baseURL: "https://api.glowapp.eu/api/",
 })
 
-import "./_login.scss";
+import "./_register.scss";
 import react from "react"
 
-function Login() {
+function Register() {
     const onClickHandler = async () => {
         setError(null)
         setLoading(true)
-        api.post("/auth/login", {
+        if(password !== password2) {
+            setLoading(false)
+            return setError("The two passwords aren't the same")
+        }
+        api.post("/auth/signup", {
             email: email,
+            username: username,
             password: password
         }).then(res => {
             setLoading(false)
-            setUserSession(res.data.token)
+            if(res.data.message) return setError(res.data.message)
+            setSuccess("Account created successfully")
             this.props.history.push('/')
         }).catch(err => {
             setLoading(false)
             console.log(err.response)
-            if(err.response.status === 401 || err.response.status === 400) {
+            if(err.response.status === 401 || err.response.status === 400 || err.response.status === 500) {
                 setError(err.response.data.message)
             }
         })
     }
 
     const [email, setEmail] = react.useState('')
+    const [username, setUsername] = react.useState('')
     const [password, setPassword] = react.useState('')
+    const [password2, setPassword2] = react.useState('')
+
     const [error, setError] = react.useState(null)
+    const [success, setSuccess] = react.useState(null)
     const [loading, setLoading] = react.useState(false)
 
     return (
         <>
             <NavBar />
-            <h1 className="title">Login</h1>
-            <div className="loginForm">
+            <h1 className="title">Signup</h1>
+            <div className="signupForm">
                 <input
                     type="text"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
+                    className="loginTextInput"
+                    placeholder="Email"
+                />
+                <input
+                    type="text"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
                     className="loginTextInput"
                     placeholder="Username"
                 />
@@ -54,17 +71,25 @@ function Login() {
                     placeholder="Password"
                 />
                 <input
+                    type="password2"
+                    value={password2}
+                    onChange={e => setPassword2(e.target.value)}
+                    className="loginTextInput"
+                    placeholder="Repeat Password"
+                />
+                <input
                     type="button"
-                    value={loading ? "Loading..." : "Login"}
+                    value={loading ? "Loading..." : "Signup"}
                     disabled={loading}
                     className="loginButtonInput"
                     onClick={onClickHandler}
-                >Login</input>
+                />
                 {error && <p className="error">{error}</p>}
-                <p className="noAcc">Have no account? Click <a href="/register">here</a> to make one.</p>
+                {success && <p className="success">{success}</p>}
+                <p className="noAcc">Already have an account? Click <a href="/login">here</a> to login.</p>
             </div>
         </>
     );
 }
 
-export default Login;
+export default Register;

@@ -10,12 +10,14 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
 
 import react from "react"
-import { isLogged } from "../../Utils/Common";
+import { getToken, removeUserSession } from "../../Utils/Common";
+import { useEffect } from "preact/hooks";
 
-function NavBar(logged) {
+function NavBar() {
 
     const handleLogout = () => {
-        getUser
+        removeUserSession()
+        window.location.reload(false)
     }
     return (
         <div className="leftBar">
@@ -51,7 +53,7 @@ function NavBar(logged) {
                     </a>
                 </li>
                 {console.log(sessionStorage.getItem("token"))}
-                {isLogged ? (
+                {getToken() ? (
                     <li>
                         <a className="leftbarListItem" onClick={handleLogout} style="float: right;">
                             <PlayCircleFilledIcon className="icon"/>
@@ -59,7 +61,6 @@ function NavBar(logged) {
                         </a>
                     </li>
                 ): (<></>)}
-                <p>{sessionStorage.getItem('token')}</p>
                 
             </ul>
         </div>

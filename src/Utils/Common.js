@@ -5,25 +5,23 @@ export const getToken = () => {
 }
 
 export const api = axios.create({
-    baseURL: "https://api.glowapp.eu/api/",
+    baseURL: "https://api.glowapp.eu/api",
     headers: {
         'Authorization': 'Bearer ' + getToken()
     }
 })
 
 export const getUser = () => {
-    const userStr = api.get("/auth/account")
-    if (userStr) return JSON.parse(userStr)
-    else return null
+    try {
+        return api.get("/auth/account")
+    } catch (error) {
+        return error
+    }
 }
 
-export const isLogged = () => {
-    if(getToken() != null) return true
-    else return false
-}
-
-export const setUserSession = (token) => {
+export const setUserSession = (token, user) => {
     sessionStorage.setItem("token", token)
+    sessionStorage.setItem("user", user)
 }
 
 export const removeUserSession = () => {

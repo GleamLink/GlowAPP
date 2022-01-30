@@ -1,16 +1,37 @@
 import NavBar from "../../components/navbar/NavBar";
 import "./_home.scss";
 
+import axios from "axios";
+export const api = axios.create({
+    baseURL: "https://api.glowapp.eu/api",
+    headers: {
+        'Authorization': 'Bearer ' + getToken()
+    }
+})
+
 // Material Icons
 import CFriends from "../../components/cfriends/CFriends";
-import { getUser } from "../../Utils/Common";
+import { getToken, getUser } from "../../Utils/Common";
+import react from "react"
+
+import { useState, useEffect } from "react"
 
 function Home() {
+    console.log(getUser())
+    
+    const [user, setUser] = useState('')
+
+    useEffect(() => {
+        api.get("/auth/account").then(res => {
+            setUser(res.data)
+        })
+    }, [])
+    
     return (
         <div className="home">
             <NavBar />
             <div className="homePage">
-                <h1 className="welcomeTitle">Welcome </h1>
+                <h1 className="welcomeTitle">Welcome {user.username}</h1>
                 <img src="http://api.glowapp.eu/forest/assets/logos/logo-transparant.png" alt="glowLogo" className="homeLogo" />
                 <div className="friends">
                     {/* <p className="paragraphOnlineFriends">Online friends - 4</p> */}
