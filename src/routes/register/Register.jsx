@@ -46,7 +46,6 @@ function Register() {
 
     return (
         <>
-            <NavBar />
             <h1 className="title">Signup</h1>
             <div className="signupForm">
                 <input

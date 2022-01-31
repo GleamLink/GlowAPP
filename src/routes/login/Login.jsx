@@ -36,7 +36,6 @@ function Login() {
 
     return (
         <>
-            <NavBar />
             <h1 className="title">Login</h1>
             <div className="loginForm">
                 <input
