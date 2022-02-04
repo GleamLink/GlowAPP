@@ -13,7 +13,11 @@ export const api = axios.create({
 })
 export const getUser = () => {
     try {
-        return api.get("/auth/account")
+        return api.get("/auth/account", {
+            headers: {
+                "authorization": 'Bearer ' + sessionStorage.getItem("token")
+            }
+        })
     } catch (error) {
         return error
     }
