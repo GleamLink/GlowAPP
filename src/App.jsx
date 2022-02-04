@@ -2,9 +2,10 @@ import "./_app.scss"
 
 import { useEffect, useState } from "preact/hooks";
 
-import Home from "./routes/home/Home"
 import Login from "./routes/login/Login";
 import Register from "./routes/register/Register";
+
+import Home from "./routes/home/Home"
 import Friends from "./routes/friends/Friends"
 import Posts from "./routes/posts/Posts"
 import Communities from "./routes/communities/Communities"
@@ -13,10 +14,12 @@ import Tunes from "./routes/tunes/Tunes"
 import PrivateRoute from "./Utils/PrivateRoute"
 import PublicRoute from "./Utils/PublicRoute";
 
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import NotFound from "./routes/notfound/NotFound";
+
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { api, getToken, removeUserSession, setUserSession } from "./Utils/Common";
-import { Fragment } from "react";
+import { Route } from "preact-router";
 
 export function App(props) {
 
@@ -27,13 +30,17 @@ export function App(props) {
 
     if(!token) return;
 
-    api.get('/auth/account').then(res => {
+    api.get('/auth/account', { 
+      headers: {
+        "authorization": 'Bearer ' + sessionStorage.getItem('token')
+      }
+    }).then(res => {
       setUserSession(res.data.token)
       setAuthLoading(false)
     }).catch(err => {
       removeUserSession()
       setAuthLoading(false)
-      this.props.history.push('/login')
+      console.log(err)
     })
   }, [])
 
@@ -50,6 +57,7 @@ export function App(props) {
       <PrivateRoute exact path="/posts" component={Posts} />
       <PrivateRoute exact path="/communities" component={Communities} />
       <PrivateRoute exact path="/tunes" component={Tunes} />
+      <Route path="*" component={NotFound} />
     </Router>
       
   )
