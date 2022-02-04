@@ -1,7 +1,5 @@
 import "./_app.scss"
 
-import { lazy, Suspense } from "preact/compat";
-
 import { useEffect, useState } from "preact/hooks";
 
 import Home from "./routes/home/Home"
@@ -15,11 +13,10 @@ import Tunes from "./routes/tunes/Tunes"
 import PrivateRoute from "./Utils/PrivateRoute"
 import PublicRoute from "./Utils/PublicRoute";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
-
-import { CookiesProvider } from 'react-cookie';
 import { api, getToken, removeUserSession, setUserSession } from "./Utils/Common";
+import { Fragment } from "react";
 
 export function App(props) {
 
@@ -45,18 +42,15 @@ export function App(props) {
   }
 
   return (
-      <Router>
-          <Switch>
-            <PrivateRoute exact path="/" component={Home} />
-            <PublicRoute exact path="/login" component={Login} />
-            <PublicRoute exact path="/register" component={Register} />
-            <PrivateRoute exact path="/friends" component={Friends} />
-            <PrivateRoute exact path="/posts" component={Posts} />
-            <PrivateRoute exact path="/communities" component={Communities} />
-            <PrivateRoute exact path="/tunes" component={Tunes} />
-          </Switch>
-        
-      </Router>
-    
+    <Router>
+      <PrivateRoute exact path="/" component={Home} />
+      <PublicRoute exact path="/login" component={Login} />
+      <PublicRoute exact path="/register" component={Register} />
+      <PrivateRoute exact path="/friends" component={Friends} />
+      <PrivateRoute exact path="/posts" component={Posts} />
+      <PrivateRoute exact path="/communities" component={Communities} />
+      <PrivateRoute exact path="/tunes" component={Tunes} />
+    </Router>
+      
   )
 }

@@ -1,31 +1,28 @@
 import NavBar from "../../components/navbar/NavBar.jsx"
 import axios from "axios"
-import { getUser, getToken, setUserSession, removeUserSession } from "../../Utils/Common"
-
-const api = axios.create({
-    baseURL: "https://api.glowapp.eu/api/",
-})
+import { getUser, getToken, setUserSession, removeUserSession, api } from "../../Utils/Common"
 
 import "./_login.scss";
 import react from "react"
 
 function Login() {
-    const onClickHandler = async () => {
+    const onClickHandler = () => {
         setError(null)
         setLoading(true)
         api.post("/auth/login", {
             email: email,
             password: password
         }).then(res => {
-            setLoading(false)
             setUserSession(res.data.token)
-            this.props.history.push('/')
+            
+            setLoading(false)
+            this.props.history.push('/')            
         }).catch(err => {
             setLoading(false)
-            console.log(err.response)
             if(err.response.status === 401 || err.response.status === 400) {
                 setError(err.response.data.message)
             }
+            else setError(err)
         })
     }
 

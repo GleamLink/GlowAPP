@@ -8,13 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.3.1",
     "@mui/material": "^5.2.8",
     "axios": "^0.25.0",
     "preact": "^10.5.15",
     "preact-router": "^4.0.0",
-    "react-cookie": "^4.1.1",
     "react-router-dom": "^5.2.0",
     "sass": "^1.47.0"
   },

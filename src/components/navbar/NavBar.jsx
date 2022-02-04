@@ -1,15 +1,14 @@
 import Option from "./option/Option";
 import "./_navbar.scss"
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
-import PeopleIcon from '@material-ui/icons/People';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import HomeIcon from '@material-ui/icons/Home';
-
-import DehazeIcon from '@material-ui/icons/Dehaze';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import PeopleIcon from '@mui/icons-material/People';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import react from "react"
 import { getToken, removeUserSession } from "../../Utils/Common";
@@ -25,9 +24,6 @@ function NavBar() {
     return (
         <>
             <div className="navBar">
-                {/* <input type="checkbox" id="check">
-                    <DehazeIcon className="checkBtn" />
-                </input> */}
                 <ul className="leftbarList">
                     <li>
                         <a href="/" className="leftbarListItem">
@@ -62,8 +58,8 @@ function NavBar() {
                     {console.log(sessionStorage.getItem("token"))}
                     {getToken() ? (
                         <li>
-                            <a className="leftbarListItem" onClick={handleLogout} style="float: right;">
-                                <PlayCircleFilledIcon className="icon"/>
+                            <a className="leftbarListItem" onClick={handleLogout} style={{float: "right"}}>
+                                <LogoutIcon className="icon"/>
                                 <span>Logout</span>
                             </a>
                         </li>

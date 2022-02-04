@@ -1,16 +1,16 @@
 import axios from "axios"
 
 export const getToken = () => {
-    return sessionStorage.getItem("token") || null
-}
-
-export const api = axios.create({
-    baseURL: "https://api.glowapp.eu/api",
-    headers: {
-        'Authorization': 'Bearer ' + getToken()
+    try {
+        return sessionStorage.getItem("token")
+    } catch (error) {
+        return error
     }
+    
+}
+export const api = axios.create({
+    baseURL: "https://api.glowapp.eu/api"
 })
-
 export const getUser = () => {
     try {
         return api.get("/auth/account")
@@ -18,12 +18,14 @@ export const getUser = () => {
         return error
     }
 }
-
-export const setUserSession = (token, user) => {
-    sessionStorage.setItem("token", token)
-    sessionStorage.setItem("user", user)
+export const setUserSession = (token) => {
+    try {
+        sessionStorage.setItem("token", token)
+    } catch (error) {
+        return error
+    }
+    
 }
-
 export const removeUserSession = () => {
     sessionStorage.removeItem("token")
 }

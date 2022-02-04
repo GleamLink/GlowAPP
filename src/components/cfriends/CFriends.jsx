@@ -1,7 +1,7 @@
 import StatusShower from "../statusshower/StatusShower";
 import "./_cfriends.scss"
 
-import MessageIcon from '@material-ui/icons/Message';
+import MessageIcon from '@mui/icons-material/Message';
 
 function CFriends(props) {
     return (

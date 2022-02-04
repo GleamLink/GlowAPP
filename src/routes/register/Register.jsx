@@ -1,10 +1,6 @@
 import NavBar from "../../components/navbar/NavBar.jsx"
 import axios from "axios"
-import { getUser, getToken, setUserSession, removeUserSession } from "../../Utils/Common"
-
-const api = axios.create({
-    baseURL: "https://api.glowapp.eu/api/",
-})
+import { getUser, getToken, setUserSession, removeUserSession, api } from "../../Utils/Common"
 
 import "./_register.scss";
 import react from "react"
