@@ -14,9 +14,11 @@ import Tunes from "./routes/tunes/Tunes"
 import PrivateRoute from "./Utils/PrivateRoute"
 import PublicRoute from "./Utils/PublicRoute";
 
+import Profile from "./routes/profile/Profile";
+
 import NotFound from "./routes/notfound/NotFound";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import { api, getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import { Route } from "preact-router";
@@ -50,14 +52,18 @@ export function App(props) {
 
   return (
     <Router>
-      <PrivateRoute exact path="/" component={Home} />
-      <PublicRoute exact path="/login" component={Login} />
-      <PublicRoute exact path="/register" component={Register} />
-      <PrivateRoute exact path="/friends" component={Friends} />
-      <PrivateRoute exact path="/posts" component={Posts} />
-      <PrivateRoute exact path="/communities" component={Communities} />
-      <PrivateRoute exact path="/tunes" component={Tunes} />
-      <Route path="*" component={NotFound} />
+      <Switch>
+        <PrivateRoute exact path="/" component={Home} />
+        <PublicRoute exact path="/login" component={Login} />
+        <PublicRoute exact path="/register" component={Register} />
+        <PrivateRoute exact path="/friends" component={Friends} />
+        <PrivateRoute exact path="/posts" component={Posts} />
+        <PrivateRoute exact path="/communities" component={Communities} />
+        <PrivateRoute exact path="/tunes" component={Tunes} />
+        <PrivateRoute exact path="/profile" component={Profile} />
+        <Route exact path="*" component={NotFound} />
+      </Switch>
+      
     </Router>
       
   )
