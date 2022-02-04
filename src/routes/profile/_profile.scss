@@ -9,4 +9,55 @@
     border-radius: 10px;
     background-color: #1f1f1f;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    .baseContainer {
+        display: flex;
+        height: 100px;
+        .testImg {
+            background-color: green;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .username {
+            font-size: 20px;
+            font-weight: 800;
+            margin-left: 30px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .email {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgb(216, 216, 216);
+        }
+    }
+    .editableItem {
+        position: relative;
+        top: 10px;
+        height: 50px;
+        .itemTitle {
+            font-variant: small-caps;
+        }
+        p {
+            position: relative;
+            left: 20px;
+        }
+        .editBtn {
+            background-color: #797979;
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            border: none;
+            border-radius: 10px;
+            width: 50px;
+            height: 30px;
+            color: white;
+            float: right;
+            align-self: center;
+        }
+    }
+    
 }
