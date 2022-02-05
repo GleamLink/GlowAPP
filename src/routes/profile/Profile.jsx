@@ -59,7 +59,7 @@ function Profile() {
                 <div className="editableItem">
                     <p className="itemTitle">Email</p>
                     <p>{ user.email }</p>
-                    <button className="editBtn">Edit</button>
+                    <button onClick={() => setIsPopupEmail(true)} className="editBtn">Edit</button>
                 </div>
                 {isPopupUsername && (
                     <PopupMenu title="Change username" array={[
