@@ -7,12 +7,14 @@ import './_profile.scss'
 // ICONS
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import PopupMenu from "../../components/popupMenu/PupupMenu";
+import { Avatar } from "@mui/material";
 
 function Profile() {
 
     const [isLoading, setIsLoading] = useState(true)
 
     const [user, setUser] = useState({})
+    const [avatarUrl, setAvatarUrl] = useState('')
 
     const [obscuredMail, setObscuredMail] = useState('')
     const [isObscuredMail, setIsObscuredMail] = useState(true)
@@ -36,12 +38,12 @@ function Profile() {
         }).then(res => {
             setUser(res.data)
             setObscuredMail(obscureEmail(res.data.email))
+            setAvatarUrl("https://api.glowapp.eu/forest/assets/avatars/" + res.data.avatar)
+            console.log(avatarUrl)
             setIsLoading(false)
         })
         
-
-        
-    }, [obscureEmail == ""])
+    }, [])
 
     
     
@@ -56,9 +58,10 @@ function Profile() {
             <NavBar />
             <h1 className="title">Profile</h1>
             <div className="profile">
-                {/* <img src={ 'https://api.glowapp.eu/forest/assets/avatars/' + user.avatar } width="30px" height="30px" alt={user.username + "'s avatar"} className="avatar" /> */}
                 <div className="baseContainer">
-                    <div className="testImg" />
+                
+                    <Avatar src={ avatarUrl } sx={{ width: 100, height: 100 }} style={{"font-size": "40px"}} >{ user.username[0] }</Avatar>
+                    {/* <div className="testImg" /> */}
                     <div className="usernameContainer">
                         <p className="username">{ user.username }</p>
                         <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >{ user.id }</a>
