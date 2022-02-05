@@ -10,10 +10,21 @@ import PopupMenu from "../../components/popupMenu/PupupMenu";
 
 function Profile() {
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const [user, setUser] = useState({})
+
+    const [obscuredMail, setObscuredMail] = useState('')
+    const [isObscuredMail, setIsObscuredMail] = useState(true)
+
     const [hoverMsg, setHoverMsg] = useState(null)
     const [isPopupUsername, setIsPopupUsername] = useState(false)
     const [isPopupEmail, setIsPopupEmail] = useState(false)
+    
+    const obscureEmail = (email) => {
+        const [name, domain] = email.split('@');
+        return `${name[0]}${new Array(name.length).join('*')}@${domain}`;
+    };
 
     useEffect(() => {
 
@@ -22,16 +33,24 @@ function Profile() {
             headers: {
                 "authorization": 'Bearer ' + sessionStorage.getItem('token')
             }
-        }).then(res => setUser(res.data))
+        }).then(res => {
+            setUser(res.data)
+            setObscuredMail(obscureEmail(res.data.email))
+            setIsLoading(false)
+        })
         
-    }, [])
 
+        
+    }, [obscureEmail == ""])
+
+    
+    
     const copyIdHandler = async () => {
         navigator.clipboard.writeText(user.id)
-        console.log("copied")
         setHoverMsg("Copied!")
     }
 
+    if(isLoading) return ("Loading")
     return (
         <>
             <NavBar />
@@ -58,18 +77,24 @@ function Profile() {
                 </div>
                 <div className="editableItem">
                     <p className="itemTitle">Email</p>
-                    <p>{ user.email }</p>
+                    <p>{ isObscuredMail ? obscuredMail : user.email } <small 
+                            onClick={() => setIsObscuredMail(!isObscuredMail)} 
+                            className="showEmail"
+                        >{
+                            isObscuredMail ? "Show" : "Hide"
+                        }</small>
+                    </p>
                     <button onClick={() => setIsPopupEmail(true)} className="editBtn">Edit</button>
                 </div>
                 {isPopupUsername && (
                     <PopupMenu title="Change username" array={[
-                        {"title": "Username", "input": {"type": "text", "text": "Enter your new Username."}},
+                        {"title": "New Username", "input": {"type": "text", "text": "Enter your new Username."}},
                         {"title": "Password", "input": {"type": "password", "text": "Enter your Password."}}
                     ]} closeHandler={() => setIsPopupUsername(false)} />
                 )}
                 {isPopupEmail && (
                     <PopupMenu title="Change email" array={[
-                        {"title": "Username", "input": {"type": "text", "text": "Enter your new Username."}},
+                        {"title": "New Email", "input": {"type": "text", "text": "Enter your new Email."}},
                         {"title": "Password", "input": {"type": "password", "text": "Enter your Password."}},
                         {"title": "Email", "input": {"type": "email", "text": "Enter your actual Email."}}
                     ]} closeHandler={() => setIsPopupEmail(false)} />

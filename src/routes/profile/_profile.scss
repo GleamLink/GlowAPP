@@ -45,6 +45,11 @@
         .itemTitle {
             font-variant: small-caps;
         }
+        .showEmail {
+            color: rgb(0, 162, 255);
+            text-decoration: underline;
+            cursor: pointer;
+        }
         p {
             position: relative;
             left: 20px;
