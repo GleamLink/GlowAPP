@@ -10,6 +10,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 function Profile() {
 
     const [user, setUser] = useState({})
+    const [hoverMsg, setHoverMsg] = useState(null)
 
     useEffect(() => {
 
@@ -22,6 +23,12 @@ function Profile() {
         
     }, [])
 
+    const copyIdHandler = async () => {
+        navigator.clipboard.writeText(user.id)
+        console.log("copied")
+        setHoverMsg("Copied!")
+    }
+
     return (
         <>
             <NavBar />
@@ -30,7 +37,15 @@ function Profile() {
                 {/* <img src={ 'https://api.glowapp.eu/forest/assets/avatars/' + user.avatar } width="30px" height="30px" alt={user.username + "'s avatar"} className="avatar" /> */}
                 <div className="baseContainer">
                     <div className="testImg" />
-                    <p className="username">{ user.username }</p>
+                    <div className="usernameContainer">
+                        <p className="username">{ user.username }</p>
+                        <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >{ user.id }</a>
+                        {hoverMsg && (
+                            <div className="copyMessage">
+                                <p>{ hoverMsg }</p>
+                            </div>
+                        )}
+                    </div>
                     
                 </div>
                 <div className="editableItem"> {/* USERNAME */}

@@ -20,13 +20,24 @@
             height: 100px;
             border-radius: 50%;
         }
-        .username {
-            font-size: 20px;
-            font-weight: 800;
+        .usernameContainer {
             margin-left: 30px;
             margin-top: auto;
             margin-bottom: auto;
+            .username {
+                font-size: 20px;
+                font-weight: 800;
+            }
+            .copyId {
+                text-decoration: underline;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+            .copyMessage {
+                position: absolute;
+            }
         }
+        
         .email {
             font-size: 16px;
             font-weight: 700;
