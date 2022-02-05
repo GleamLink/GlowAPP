@@ -7,7 +7,7 @@ import './_profile.scss'
 // ICONS
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import PopupMenu from "../../components/popupMenu/PupupMenu";
-import { Avatar } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 
 function Profile() {
 
@@ -59,9 +59,13 @@ function Profile() {
             <h1 className="title">Profile</h1>
             <div className="profile">
                 <div className="baseContainer">
-                
-                    <Avatar src={ avatarUrl } sx={{ width: 100, height: 100 }} style={{"font-size": "40px"}} >{ user.username[0] }</Avatar>
-                    {/* <div className="testImg" /> */}
+                    <Badge 
+                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                        variant="dot"
+                        color="primary"
+                    >
+                        <Avatar src={ avatarUrl } sx={{ width: 100, height: 100 }} style={{"font-size": "40px"}} >{ user.username[0] }</Avatar>
+                    </Badge>
                     <div className="usernameContainer">
                         <p className="username">{ user.username }</p>
                         <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >{ user.id }</a>

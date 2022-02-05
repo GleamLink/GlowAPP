@@ -4,6 +4,7 @@ import { getUser, getToken, setUserSession, removeUserSession, api } from "../..
 
 import "./_login.scss";
 import react from "react"
+import { Alert, Snackbar } from "@mui/material";
 
 function Login() {
     const onClickHandler = () => {
@@ -16,7 +17,7 @@ function Login() {
             setUserSession(res.data.token)
             
             setLoading(false)
-            this.props.history.push('/')            
+            this.props.history.push('/')
         }).catch(err => {
             setLoading(false)
             if(err.response.status === 401 || err.response.status === 400) {
