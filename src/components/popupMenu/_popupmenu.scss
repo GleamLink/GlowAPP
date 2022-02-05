@@ -1,0 +1,72 @@
+.popupMenuContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.2);
+    .popupMenu {
+        position: absolute;
+        position: absolute; 
+        left: 0; 
+        right: 0; 
+        margin: auto;
+        bottom: 50%;
+        background-color: #1e1e1e;
+        width: 600px;
+        // height: 300px;
+        border: 10px solid #222;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        .closeButton {
+            position: absolute;
+            color: white;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+        .informations {
+            position: relative;
+            top: 20px;
+        }
+        .inputContainer {
+            margin-bottom: 10px;
+            .infoTitle {
+                margin-bottom: 5px;
+                font-variant: small-caps;
+            }
+            .infoInput {
+                width: 40%;
+                border: none;
+                border-radius: 10px;
+                height: 20px;
+                padding: 10px;
+            }
+        }
+        .btnContainer {
+            display: flex;
+            justify-content: flex-end;
+            .popupBtn {
+                float: right;
+                padding: 7px;
+                border: none;
+                margin-top: 5px;
+                height: 40px;
+                width: 100px;
+                border-radius: 10px;
+                transition: all .3s;
+                background-color: #797979;
+                color: white;
+                cursor: pointer;
+                margin-left: 5px;
+            }
+            .popupBtn:hover {
+                background-color: #5f5d5d;
+            }
+        }
+            
+    }
+}

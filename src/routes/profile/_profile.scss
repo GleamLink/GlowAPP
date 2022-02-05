@@ -37,12 +37,6 @@
                 position: absolute;
             }
         }
-        
-        .email {
-            font-size: 16px;
-            font-weight: 700;
-            color: rgb(216, 216, 216);
-        }
     }
     .editableItem {
         position: relative;
@@ -68,7 +62,11 @@
             color: white;
             float: right;
             align-self: center;
+            cursor: pointer;
+            transition: all .3s;
+        }
+        .editBtn:hover {
+            background-color: #5f5d5d;
         }
     }
-    
 }

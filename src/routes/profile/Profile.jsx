@@ -6,11 +6,14 @@ import './_profile.scss'
 
 // ICONS
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import PopupMenu from "../../components/popupMenu/PupupMenu";
 
 function Profile() {
 
     const [user, setUser] = useState({})
     const [hoverMsg, setHoverMsg] = useState(null)
+    const [isPopupUsername, setIsPopupUsername] = useState(false)
+    const [isPopupEmail, setIsPopupEmail] = useState(false)
 
     useEffect(() => {
 
@@ -51,15 +54,26 @@ function Profile() {
                 <div className="editableItem"> {/* USERNAME */}
                     <p className="itemTitle">Username</p>
                     <p>{ user.username }</p>
-                    <button className="editBtn">Edit</button>
+                    <button onClick={() => setIsPopupUsername(true)} className="editBtn">Edit</button>
                 </div>
                 <div className="editableItem">
                     <p className="itemTitle">Email</p>
                     <p>{ user.email }</p>
                     <button className="editBtn">Edit</button>
                 </div>
-                
-                <p className="email"></p>
+                {isPopupUsername && (
+                    <PopupMenu title="Change username" array={[
+                        {"title": "Username", "input": {"type": "text", "text": "Enter your new Username."}},
+                        {"title": "Password", "input": {"type": "password", "text": "Enter your Password."}}
+                    ]} closeHandler={() => setIsPopupUsername(false)} />
+                )}
+                {isPopupEmail && (
+                    <PopupMenu title="Change email" array={[
+                        {"title": "Username", "input": {"type": "text", "text": "Enter your new Username."}},
+                        {"title": "Password", "input": {"type": "password", "text": "Enter your Password."}},
+                        {"title": "Email", "input": {"type": "email", "text": "Enter your actual Email."}}
+                    ]} closeHandler={() => setIsPopupEmail(false)} />
+                )}
             </div>
         </>
     );
