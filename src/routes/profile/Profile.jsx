@@ -7,7 +7,7 @@ import './_profile.scss'
 // ICONS
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import PopupMenu from "../../components/popupMenu/PupupMenu";
-import { Avatar, Badge } from "@mui/material";
+import { Alert, Avatar, Badge, Snackbar } from "@mui/material";
 
 function Profile() {
 
@@ -22,6 +22,13 @@ function Profile() {
     const [hoverMsg, setHoverMsg] = useState(null)
     const [isPopupUsername, setIsPopupUsername] = useState(false)
     const [isPopupEmail, setIsPopupEmail] = useState(false)
+
+    const [inputOldEmail, setInputOldEmail] = useState(null)
+    const [inputPassword, setInputPassword] = useState(null)
+    const [inputNewEmail, setInputNewEmail] = useState(null)
+    const [inputUsername, setInputUsername] = useState(null)
+
+    const [isFirstOpen, setIsFirstOpen] = useState(false)
     
     const obscureEmail = (email) => {
         const [name, domain] = email.split('@');
@@ -39,11 +46,10 @@ function Profile() {
             setUser(res.data)
             setObscuredMail(obscureEmail(res.data.email))
             setAvatarUrl("https://api.glowapp.eu/forest/assets/avatars/" + res.data.avatar)
-            console.log(avatarUrl)
             setIsLoading(false)
         })
         
-    }, [])
+    }, [isPopupUsername, isPopupEmail])
 
     
     
@@ -94,19 +100,122 @@ function Profile() {
                     <button onClick={() => setIsPopupEmail(true)} className="editBtn">Edit</button>
                 </div>
                 {isPopupUsername && (
-                    <PopupMenu title="Change username" array={[
-                        {"title": "New Username", "input": {"type": "text", "text": "Enter your new Username."}},
-                        {"title": "Password", "input": {"type": "password", "text": "Enter your Password."}}
-                    ]} closeHandler={() => setIsPopupUsername(false)} />
+                    <PopupMenu
+                        title="Change username"
+                        closeHandler={() => setIsPopupUsername(false)}
+                        btnClickHandler={() => {
+                            api.patch('/users/@me', {
+                                "username": inputUsername,
+                                "password": inputPassword
+                            }, {
+                                headers: {
+                                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                                }
+                            }).then((err, res) => {
+                                if(err.status === 200) {
+                                    setIsPopupUsername(false)
+                                    setInputPassword(null)
+                                    setInputOldEmail(null)
+                                    setInputNewEmail(null)
+                                    setInputUsername(null)
+
+                                    setIsFirstOpen(true) // Open snackbar
+                                }
+                            })
+                            
+                        }}
+                    >
+                        <div className="inputContainer">
+                                <p className="infoTitle">New Username</p>
+                                <input 
+                                    className="infoInput"
+                                    type="email"
+                                    placeholder="Enter your new Username."
+                                    onChange={(e) => {
+                                        setInputUsername(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className="inputContainer">
+                                <p className="infoTitle">Password</p>
+                                <input 
+                                    className="infoInput"
+                                    type="password"
+                                    placeholder="Enter your Password."
+                                    onChange={(e) => {
+                                        setInputPassword(e.target.value)
+                                    }}
+                                />
+                            </div>
+                    </PopupMenu>
                 )}
                 {isPopupEmail && (
-                    <PopupMenu title="Change email" array={[
-                        {"title": "New Email", "input": {"type": "text", "text": "Enter your new Email."}},
-                        {"title": "Password", "input": {"type": "password", "text": "Enter your Password."}},
-                        {"title": "Email", "input": {"type": "email", "text": "Enter your actual Email."}}
-                    ]} closeHandler={() => setIsPopupEmail(false)} />
+                    <PopupMenu
+                        title="Change Email"
+                        onSuccess={(<Alert severity="success">Account updated successfully</Alert>)}
+                        onError={(<Alert severity="error">Account could not be updated!</Alert>)}
+                        btnClickHandler={() => {
+                            if(inputOldEmail !== user.email) {
+                                console.log("not same mail")
+                                return (<Alert severity="error">Old email isn't the same.</Alert>)
+                            }
+                            api.patch('/users/@me', {
+                                "email": inputNewEmail,
+                                "password": inputPassword
+                            }, {
+                                headers: {
+                                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                                }
+                            }).then(() => {
+                                setInputPassword(null)
+                                setInputOldEmail(null)
+                                setInputNewEmail(null)
+                                setInputUsername(null)
+                            })
+                        }}
+                        closeHandler={() => setIsPopupEmail(false)}
+                    >
+                            <div className="inputContainer">
+                                <p className="infoTitle">Old Email</p>
+                                <input 
+                                    className="infoInput"
+                                    type="email"
+                                    placeholder="Enter your old Email."
+                                    onChange={(e) => {
+                                        setInputOldEmail(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className="inputContainer">
+                                <p className="infoTitle">Password</p>
+                                <input 
+                                    className="infoInput"
+                                    type="password"
+                                    placeholder="Enter your Password."
+                                    onChange={(e) => {
+                                        setInputPassword(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className="inputContainer">
+                                <p className="infoTitle">New Email</p>
+                                <input 
+                                    className="infoInput"
+                                    type="email"
+                                    placeholder="Enter your new Email."
+                                    onChange={(e) => {
+                                        setInputNewEmail(e.target.value)
+                                    }}
+                                />
+                            </div>
+                    </PopupMenu>
                 )}
             </div>
+            <Snackbar open={isFirstOpen} autoHideDuration={6000} onClose={() => setIsFirstOpen(false)}>
+                <Alert onClose={() => setIsFirstOpen(false)} severity="success" sx={{ width: '100%' }}>
+                    Username changed successfully to {user.username}!
+                </Alert>
+            </Snackbar>
         </>
     );
 }

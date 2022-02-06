@@ -1,6 +1,6 @@
 import NavBar from "../../components/navbar/NavBar.jsx"
 import axios from "axios"
-import { getUser, getToken, setUserSession, removeUserSession, api } from "../../Utils/Common"
+import { setUserSession, api } from "../../Utils/Common"
 
 import "./_login.scss";
 import react from "react"
