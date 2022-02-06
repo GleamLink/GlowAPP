@@ -28,11 +28,23 @@
                 font-size: 20px;
                 font-weight: 800;
             }
-            .copyId {
-                text-decoration: underline;
-                text-transform: uppercase;
-                cursor: pointer;
+            .userIdContainer {
+                display: flex;
+                .copyId {
+                    text-decoration: underline;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    display: flex;
+                    
+                }
+                .helpIconUserId {
+                    color: rgb(125, 125, 125);
+                    margin: 0;
+                    margin-left: 5px;
+                    align-self: center;
+                }
             }
+            
             .copyMessage {
                 position: absolute;
             }

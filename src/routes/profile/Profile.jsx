@@ -6,8 +6,11 @@ import './_profile.scss'
 
 // ICONS
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import HelpIcon from '@mui/icons-material/Help';
+
 import PopupMenu from "../../components/popupMenu/PupupMenu";
-import { Alert, Avatar, Badge, Snackbar } from "@mui/material";
+
+import { Alert, Avatar, Badge, Snackbar, Tooltip } from "@mui/material";
 
 function Profile() {
 
@@ -74,7 +77,16 @@ function Profile() {
                     </Badge>
                     <div className="usernameContainer">
                         <p className="username">{ user.username }</p>
-                        <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >{ user.id }</a>
+                        <div className="userIdContainer">
+                            <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >
+                                { user.id }
+                            </a>
+                            <Tooltip title="This is your public user ID. This is an unique ID who is given to you only.">
+                                <HelpIcon className="helpIconUserId" />
+                            </Tooltip>
+                        </div>
+                        
+                        
                         {hoverMsg && (
                             <div className="copyMessage">
                                 <p>{ hoverMsg }</p>
@@ -211,7 +223,7 @@ function Profile() {
                     </PopupMenu>
                 )}
             </div>
-            <Snackbar open={isFirstOpen} autoHideDuration={6000} onClose={() => setIsFirstOpen(false)}>
+            <Snackbar variant="filled" open={isFirstOpen} autoHideDuration={6000} onClose={() => setIsFirstOpen(false)}>
                 <Alert onClose={() => setIsFirstOpen(false)} severity="success" sx={{ width: '100%' }}>
                     Username changed successfully to {user.username}!
                 </Alert>
