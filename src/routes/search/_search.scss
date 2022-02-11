@@ -1,10 +1,40 @@
 .searchPage {
+    align-self: center;
+    width: 50%;
+    margin: auto;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+
+    position: relative;
+    top: 20px;
+
+    background-color: rgb(41, 41, 41);
+    border-radius: 20px;
+    box-shadow: -1px 1px 10px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 1px 10px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 1px 10px -4px rgba(0,0,0,0.75);
+    // align-items: center;
     .searchInput {
+        align-self: center;
+        width: 60%;
         position: relative;
-        top: 20px;
         padding: 15px;
         margin: 10px 0px;
+        border-radius: 10px;
+    }
+    .searchUser {
+        position: relative;
+        margin: 20px;
+        margin-top: 40px;
+        border-radius: 10px;
+        .user {
+            transition: .7s;
+            padding: 10px;
+        }
+    }
+    .searchUser:hover {
+        background-color: rgb(34, 34, 34);
+        cursor: pointer;
     }
 }

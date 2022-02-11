@@ -1,0 +1,22 @@
+.user {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    // .avatar {
+
+    // }
+    .information {
+        margin-left: 10px;
+        .username {
+            color: white;
+        }
+        .bio {
+            color: #8e8e8e;
+        }
+    }
+    .followBtn {
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+    }
+}
