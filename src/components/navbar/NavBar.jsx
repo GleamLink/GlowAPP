@@ -4,7 +4,8 @@ import "./_navbar.scss"
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import PeopleIcon from '@mui/icons-material/People';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SearchIcon from '@mui/icons-material/Search';
+import ChatIcon from '@mui/icons-material/Chat';
 import HomeIcon from '@mui/icons-material/Home';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -39,11 +40,17 @@ function NavBar() {
                             </a>
                         </li>
                         <li>
-                            <a href="/friends" className="navbarListItem">
-                                <PeopleAltIcon className="icon"/>
-                                <span>Friends</span>
+                            <a href="/search" className="navbarListItem">
+                                <SearchIcon className="icon"/>
+                                <span>Search</span>
                             </a>
                         </li>
+                        <li>
+                                <a href="/chat" className="navbarListItem">
+                                    <ChatIcon className="icon"/>
+                                    <span>Chat</span>
+                                </a>
+                            </li>
                         <li>
                             <a href="/posts" className="navbarListItem">
                                 <PhotoLibraryIcon className="icon"/>
@@ -63,7 +70,7 @@ function NavBar() {
                             </a>
                         </li>
                         {sessionStorage.getItem('token') ? (
-                            <div style={{ "margin-left": "auto", "display": "flex", "flex-direction": "row" }}>
+                            <div style={{ "float": "right", "right": "0", "margin-left": "auto", "display": "flex", "flex-direction": "row" }}>
                                 <li>
                                     <a href="/profile" className="navbarListItem" >
                                         <AccountCircleIcon className="icon"/>
@@ -106,9 +113,15 @@ function NavBar() {
                                 </a>
                             </li>
                             <li>
-                                <a href="/friends" className="navbarListItem">
-                                    <PeopleAltIcon className="icon"/>
-                                    <span>Friends</span>
+                                <a href="/search" className="navbarListItem">
+                                    <SearchIcon className="icon"/>
+                                    <span>Search</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/chat" className="navbarListItem">
+                                    <ChatIcon className="icon"/>
+                                    <span>Chat</span>
                                 </a>
                             </li>
                             <li>

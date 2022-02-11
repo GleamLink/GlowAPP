@@ -56,6 +56,20 @@
     }
 }
 
+@media screen and (max-width: 945px) {
+    .navBar {
+        .navbarList {
+            .computer {
+                .navbarListItem {
+                    span {
+                        display: none
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 825px) {
     .navBar {
         background-color: #1e1e1e;

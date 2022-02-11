@@ -6,7 +6,7 @@ import Login from "./routes/login/Login";
 import Register from "./routes/register/Register";
 
 import Home from "./routes/home/Home"
-import Friends from "./routes/friends/Friends"
+import Search from "./routes/search/Search"
 import Posts from "./routes/posts/Posts"
 import Communities from "./routes/communities/Communities"
 import Tunes from "./routes/tunes/Tunes"
@@ -22,6 +22,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import { api, getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import { Route } from "preact-router";
+import Chat from "./routes/chat/Chat";
 
 export function App(props) {
 
@@ -56,7 +57,8 @@ export function App(props) {
         <PrivateRoute exact path="/" component={Home} />
         <PublicRoute exact path="/login" component={Login} />
         <PublicRoute exact path="/register" component={Register} />
-        <PrivateRoute exact path="/friends" component={Friends} />
+        <PrivateRoute exact path="/search" component={Search} />
+        <PrivateRoute exact path="/chat" component={Chat} />
         <PrivateRoute exact path="/posts" component={Posts} />
         <PrivateRoute exact path="/communities" component={Communities} />
         <PrivateRoute exact path="/tunes" component={Tunes} />
