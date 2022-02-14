@@ -46,11 +46,11 @@ function NavBar() {
                             </a>
                         </li>
                         <li>
-                                <a href="/chat" className="navbarListItem">
-                                    <ChatIcon className="icon"/>
-                                    <span>Chat</span>
-                                </a>
-                            </li>
+                            <a href="/chat" className="navbarListItem">
+                                <ChatIcon className="icon"/>
+                                <span>Chat</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="/posts" className="navbarListItem">
                                 <PhotoLibraryIcon className="icon"/>
@@ -70,7 +70,7 @@ function NavBar() {
                             </a>
                         </li>
                         {sessionStorage.getItem('token') ? (
-                            <div style={{ "float": "right", "right": "0", "margin-left": "auto", "display": "flex", "flex-direction": "row" }}>
+                            <div className="rightSide">
                                 <li>
                                     <a href="/profile" className="navbarListItem" >
                                         <AccountCircleIcon className="icon"/>

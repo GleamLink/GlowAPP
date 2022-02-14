@@ -11,6 +11,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import PopupMenu from "../../components/popupMenu/PupupMenu";
 
 import { Alert, Avatar, Badge, Snackbar, Tooltip } from "@mui/material";
+import FollowRequests from "./followRequests/FollowRequests";
 
 function Profile() {
 
@@ -67,34 +68,41 @@ function Profile() {
             <NavBar />
             <h1 className="title">Profile</h1>
             <div className="profile">
-                <div className="baseContainer">
-                    <Badge 
-                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                        variant="dot"
-                        color="primary"
-                    >
-                        <Avatar src={ avatarUrl } sx={{ width: 100, height: 100 }} style={{"font-size": "40px"}} >{ user.username[0] }</Avatar>
-                    </Badge>
-                    <div className="usernameContainer">
-                        <p className="username">{ user.username }</p>
-                        <div className="userIdContainer">
-                            <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >
-                                { user.id }
-                            </a>
-                            <Tooltip title="This is your public user ID. This is an unique ID who is given to you only.">
-                                <HelpIcon className="helpIconUserId" />
-                            </Tooltip>
+                <div className="topContainer">
+                    <div className="baseContainer">
+                        <Badge 
+                            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                            variant="dot"
+                            color="primary"
+                        >
+                            <Avatar src={ avatarUrl } sx={{ width: 100, height: 100 }} style={{"font-size": "40px"}} >{ user.username[0] }</Avatar>
+                        </Badge>
+                        <div className="usernameContainer">
+                            <p className="username">{ user.username }</p>
+                            <div className="userIdContainer">
+                                <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >
+                                    { user.id }
+                                </a>
+                                <Tooltip title="This is your public user ID. This is an unique ID who is given to you only.">
+                                    <HelpIcon className="helpIconUserId" />
+                                </Tooltip>
+                            </div>
+                            
+                            
+                            {hoverMsg && (
+                                <div className="copyMessage">
+                                    <p>{ hoverMsg }</p>
+                                </div>
+                            )}
                         </div>
                         
-                        
-                        {hoverMsg && (
-                            <div className="copyMessage">
-                                <p>{ hoverMsg }</p>
-                            </div>
-                        )}
                     </div>
-                    
+                    <div className="followersFollowing">
+                        <p className="text">Followers</p>
+                        <p className="text">Following</p>
+                    </div>
                 </div>
+                
                 <div className="editableItem"> {/* USERNAME */}
                     <p className="itemTitle">Username</p>
                     <p>{ user.username }</p>
@@ -223,6 +231,7 @@ function Profile() {
                     </PopupMenu>
                 )}
             </div>
+            <FollowRequests />
             <Snackbar variant="filled" open={isFirstOpen} autoHideDuration={6000} onClose={() => setIsFirstOpen(false)}>
                 <Alert onClose={() => setIsFirstOpen(false)} severity="success" sx={{ width: '100%' }}>
                     Username changed successfully to {user.username}!

@@ -11,42 +11,62 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    .baseContainer {
+    .topContainer {
+        width: 100%;
         display: flex;
-        height: 100px;
-        .testImg {
-            background-color: green;
-            width: 100px;
+        align-items: center;
+        justify-content: space-between;
+        .baseContainer {
+            display: flex;
             height: 100px;
-            border-radius: 50%;
-        }
-        .usernameContainer {
-            margin-left: 30px;
-            margin-top: auto;
-            margin-bottom: auto;
-            .username {
-                font-size: 20px;
-                font-weight: 800;
+            .testImg {
+                background-color: green;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
             }
-            .userIdContainer {
-                display: flex;
-                .copyId {
-                    text-decoration: underline;
-                    text-transform: uppercase;
-                    cursor: pointer;
+            .usernameContainer {
+                margin-left: 30px;
+                margin-top: auto;
+                margin-bottom: auto;
+                .username {
+                    font-size: 20px;
+                    font-weight: 800;
+                }
+                .userIdContainer {
                     display: flex;
-                    
+                    .copyId {
+                        text-decoration: underline;
+                        text-transform: uppercase;
+                        cursor: pointer;
+                        display: flex;
+                        
+                    }
+                    .helpIconUserId {
+                        color: rgb(125, 125, 125);
+                        margin: 0;
+                        margin-left: 5px;
+                        align-self: center;
+                    }
                 }
-                .helpIconUserId {
-                    color: rgb(125, 125, 125);
-                    margin: 0;
-                    margin-left: 5px;
-                    align-self: center;
+                
+                .copyMessage {
+                    position: absolute;
                 }
             }
-            
-            .copyMessage {
-                position: absolute;
+        }
+        .followersFollowing {
+            float: right;
+            width: 200px;
+            display: flex;
+            justify-content: space-evenly;
+            .text {
+                padding: 10px;
+                background-color: #333333;
+                border-radius: 10px;
+            }
+            .text:hover {
+                cursor: pointer;
             }
         }
     }

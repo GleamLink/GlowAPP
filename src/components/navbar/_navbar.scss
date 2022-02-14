@@ -17,9 +17,14 @@
         flex-direction: row;
         list-style-type: none;
         .computer {
+            width: 100%;
             display: flex;
             .navbarResponsiveMenu {
                 display: none;
+            }
+            .rightSide {
+                display: flex;
+                float: right;
             }
             .navbarListItem {
                 display: flex;
