@@ -1,0 +1,42 @@
+.message {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    margin-top: 0;
+    .top {
+        display: flex;
+        margin-top: 10px;
+        .img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        p {
+            margin-left: 10px;
+            align-self: center;
+        }
+        .time {
+            font-size: 12px;
+            color: grey;
+        }
+    }
+    .bottom {
+        .text {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgb(70, 70, 70);
+            margin-top: 5px;
+            max-width: 400px;
+        }
+    }
+
+    
+}
+.own {
+    align-items: flex-end;
+    .bottom .text { /*is message from own user*/
+        background-color: rgb(114, 114, 114);
+        font-weight: 500;
+    }
+}

@@ -6,17 +6,104 @@
 .chatContainer {
     display: flex;
     justify-content: space-around;
-    height: calc(100% - 44px);
-    .leftBar {
-        width: 20%;
+    height: calc(100vh - 44px);
+    .menu {
+        flex: 1.5;
         border-right: 1px solid white;
-        padding: 20px;
+        .menuWrapper {
+            display: flex;
+            flex-direction: column;
+            top: 0;
+            height: 100%;
+            .searchInput {
+                display: flex;
+                align-self: center;
+                width: 90%;
+                padding: 10px 0;
+                border: none;
+                border-bottom: 1px solid gray;
+                background: none;
+                color: white;
+            }
+            .searchInput::placeholder {
+                color: white;
+            }
+            .searchInput:focus {
+                outline: none;
+            }
+        }
+        
     }
-    .centralPage {
+    .box {
+        flex: 6;
         width: 100%;
-        border-right: 1px solid white;
+        // border-right: 1px solid white;
+        .boxWrapper {
+            display: flex;
+            flex-direction: column;
+            .chatBoxTop {
+                overflow-y: scroll;
+                scroll-behavior: smooth;
+            }
+            .chatBoxBottom {
+                position: sticky;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                // margin-top: 5px;
+                .chatInput {
+                    width: 80%;
+                    height: 90px;
+                    padding: 10px;
+                    resize: none;
+                    background: none;
+                    color: white;
+                    border-radius: 15px;
+                    border: 2px solid rgb(59, 59, 59);
+                    margin-left: 10px;
+                    margin-bottom: 5px;
+                    transition: .3s;
+                }
+                .chatInput:focus {
+                    outline: none;
+                    border: 2px solid rgb(6, 165, 6);
+                }
+                .chatSubmit {
+                    width: 80px;
+                    height: 50px;
+                    border: none;
+                    border-radius: 10px;
+                }
+            }
+        }
     }
-    .rightBar {
+    .online {
+        flex: 1.5;
         width: 20%;
     }
+
+    .menuWrapper, .boxWrapper, .onlineWrapper {
+        height: 100%;
+    }
+}
+
+// SCROLLBAR
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #afafaf;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(117, 117, 117);
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
