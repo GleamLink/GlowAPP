@@ -1,6 +1,12 @@
 import "./_message.scss"
 
-function Message({ own /*is message from user*/ }) {
+import { format } from 'timeago.js'
+
+function Message({ message, own /*is message from user*/ }) {
+
+    const timestamp = new Date(message.timestamp * 1000)
+    console.log("ABCDEFU" + new Date(1645274504*1000).toString())
+
     return (
         <div className={own ? "message own" : "message"}>
             <div className="top">
@@ -10,11 +16,11 @@ function Message({ own /*is message from user*/ }) {
                     alt=""
                 />
                 <p className="username">John Doe</p>
-                <p className="time">20 minutes ago</p>
+                <p className="time">{format(timestamp, "fr_FR")}</p>
                 
             </div>
             <div className="bottom">
-                <p className="text">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.</p>
+                <p className="text">{message.text}</p>
             </div>
         </div>
     );

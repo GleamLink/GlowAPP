@@ -16,7 +16,8 @@
     "preact": "^10.5.15",
     "preact-router": "^4.0.0",
     "react-router-dom": "^5.2.0",
-    "sass": "^1.47.0"
+    "sass": "^1.47.0",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.1.5",

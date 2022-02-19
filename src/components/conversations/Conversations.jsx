@@ -1,10 +1,34 @@
+import { Avatar } from "@mui/material";
+import { useEffect, useState } from "preact/hooks";
+import { api } from "../../Utils/Common";
 import "./_conversations.scss"
 
-function Conversation() {
+function Conversation({ conv, user }) {
+
+    const [convUser, setConvUser] = useState([])
+    const [avatarUrl, setAvatarUrl] = useState("https://api.glowapp.eu/forest/assets/avatars/" + user.avatar)
+
+    useEffect(() => {
+        console.log(user, conv)
+        const friendId = conv.members.find((m) => m !== user.id)
+        console.log("F: " + friendId)
+        
+        api.get('/users/' + friendId, {
+            headers: {
+                "authorization": 'Bearer ' + sessionStorage.getItem('token')
+            }
+        }).then(res => {
+            setConvUser(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+        
+    }, [user, conv])
+
     return (
         <div className="conversation">
-            <img className="img" src="https://cdn.discordapp.com/avatars/471238565033148427/121f385ebe564b8441ec617ced1e5d4e.webp" alt="" />
-            <span className="name">John Doe</span>
+            <Avatar className="img" src={avatarUrl} alt="" />
+            <span className="name">{convUser?.username}</span>
         </div>
     );
 }
