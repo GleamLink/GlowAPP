@@ -1,9 +1,9 @@
 import { Avatar, Button } from "@mui/material";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { api } from "../../../Utils/Common";
 import "./_searchUser.scss"
 
-function SearchUser(props) {
+function SearchUser({ user }) {
 
     const TextAbstract = (text, length) => {
         if (text == null) {
@@ -18,25 +18,23 @@ function SearchUser(props) {
         return text + "...";
     }
 
-    const [isFollowing, setIsFollowing] = useState(false);
-
     return (
         <div className="user">
-            <Avatar className="avatar" sx={{ width: 56, height: 56 }} src={"https://api.glowapp.eu/forest/assets/avatars/" + props.avatarUri} alt={props.username} />
+            <Avatar className="avatar" sx={{ width: 56, height: 56 }} src={"https://api.glowapp.eu/forest/assets/avatars/" + user.avatar} alt={user.username} />
             <div className="information">
                 <div className="username">
-                    {props.username}
+                    {user.username}
                 </div>
-                {props.bio && (
+                {user.bio && (
                     <div className="bio">
-                        {TextAbstract(props.bio, 50)}
+                        {TextAbstract(user.bio, 50)}
                     </div>
                 )}
             </div>
-            {isFollowing ? 
+            {/* {isFollowing ? 
                 (<Button className="followBtn" variant="">Unfollow</Button>)
             :
-                (<Button onClick={props.btnClick} className="followBtn" variant="text">Follow</Button>)}
+                (<Button onClick={props.btnClick} className="followBtn" variant="text">Follow</Button>)} */}
         </div>
     );
 }

@@ -12,35 +12,14 @@ function Search() {
     const [error, setError] = useState(null)
     const [success, setSuccess] = useState(null)
 
-    const handleSearch = (e) => {
-        if(e.key === 'Enter') {
-            api.get('/users/search/' + search, {
-                headers: {
-                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                }
-            }).then(res => {
-                console.log(res.data)
-                getUser(res.data, (err, res) => {
-                    if(err) return err
-                    console.log(res)
-                    setSearchUser(res.data)
-                })
-            }).catch(err => {
-                setError(err.response.data.message)
-                setSearchUser(null)
-            })
-        }
-    }
-
-    const getUser = (id, cb) => {
-        api.get('/users/' + id, {
+    const handleChange = (e) => {
+        api.get('https://api.glowapp.eu/api/users/search?searchUser=' + e.target.value, {
             headers: {
                 "authorization": 'Bearer ' + sessionStorage.getItem('token')
             }
         }).then(res => {
-            return cb(null, res)
-        }).catch(err => {
-            return cb(err, null)
+            console.log(res.data)
+            setSearch(res.data)
         })
     }
 
@@ -52,33 +31,13 @@ function Search() {
                     className="searchInput"
                     type="search"
                     placeholder="Search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyPress={handleSearch}
+                    onChange={handleChange}
                 />
-                {searchUser && (
-                    <div className="searchUser">
-                        <SearchUser
-                            className="i"
-                            id={searchUser.id}
-                            avatarUri={searchUser.avatar}
-                            username={searchUser.username}
-                            bio={searchUser.bio}
-                            btnClick={() => { // Handler
-                                api.post(`/users/${searchUser.id}/follow`, {}, {
-                                    headers: {
-                                        "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                                    }
-                                }).then(res => {
-                                    if(res.status === 200) return setSuccess("Successfully sent follow request to " + searchUser.username + "!")
-                                }).catch(err => {
-                                    if(err) setError(err.response.data.message)
-                                    
-                                })
-                            }}
-                            />
-                    </div>
-                )}
+                
+                {search.length && search.map((value, key) => {
+                    return <SearchUser user={value} key={value.id} btnClick={() => {  }} />
+                })}
+
                 {error && (
                     <Snackbar variant="filled" open={error} autoHideDuration={6000} onClose={() => setError(null)}>
                         <Alert onClose={() => setError(null)} severity="error" sx={{ width: '100%' }}>
