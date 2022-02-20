@@ -6,7 +6,7 @@ import "./_conversations.scss"
 function Conversation({ conv, user }) {
 
     const [convUser, setConvUser] = useState([])
-    const [avatarUrl, setAvatarUrl] = useState("https://api.glowapp.eu/forest/assets/avatars/" + user.avatar)
+    const [avatarUrl, setAvatarUrl] = useState('')
 
     useEffect(() => {
         console.log(user, conv)
@@ -19,6 +19,7 @@ function Conversation({ conv, user }) {
             }
         }).then(res => {
             setConvUser(res.data)
+            setAvatarUrl("https://api.glowapp.eu/forest/assets/avatars/" + res.data.avatar)
         }).catch(err => {
             console.log(err)
         })
@@ -28,7 +29,7 @@ function Conversation({ conv, user }) {
     return (
         <div className="conversation">
             <Avatar className="img" src={avatarUrl} alt="" />
-            <span className="name">{convUser?.username}</span>
+            <span className="name">{convUser.username}</span>
         </div>
     );
 }

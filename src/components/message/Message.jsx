@@ -1,11 +1,27 @@
 import "./_message.scss"
+import { useEffect, useRef, useState } from "preact/hooks";
 
 import { format } from 'timeago.js'
+import { api } from '../../Utils/Common'
 
-function Message({ message, own /*is message from user*/ }) {
+function Message({ message, own /*is message from user*/, currentChat, user }) {
+
+    const [chatUser, setChatUser] = useState([])
 
     const timestamp = new Date(message.timestamp * 1000)
-    console.log("ABCDEFU" + new Date(1645274504*1000).toString())
+    
+    const receiverId = currentChat.members.find(
+        member => member !== user.id
+    )
+
+    useEffect(async () => {
+        await api.get('/users/' + receiverId, {
+            headers: {
+                "authorization": 'Bearer ' + sessionStorage.getItem('token')
+            }
+        }).then(res => setChatUser(res.data))
+        .catch(err => console.log(err))
+    }, [receiverId])
 
     return (
         <div className={own ? "message own" : "message"}>
@@ -15,7 +31,7 @@ function Message({ message, own /*is message from user*/ }) {
                     src="https://cdn.discordapp.com/avatars/471238565033148427/121f385ebe564b8441ec617ced1e5d4e.webp"
                     alt=""
                 />
-                <p className="username">John Doe</p>
+                <p className="username">{own ? user.username : chatUser.username}</p>
                 <p className="time">{format(timestamp, "fr_FR")}</p>
                 
             </div>

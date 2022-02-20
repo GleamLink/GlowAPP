@@ -27,78 +27,86 @@ function Chat() {
 
     const socket = useRef()
     
-    useEffect(() => {
-        socket.current = io("ws://localhost:8000")
-        socket.current.on("getMessage", data => {
-            setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now()
-            })
-        })
-    }, [])
-
-    useEffect(() => {
-        arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
-        setMessages(prev => [...prev, arrivalMessage])
-    }, [arrivalMessage, currentChat])
-
-    useEffect(() => {
-        if(user === null) return
-        socket.current.emit("addUser", user.id)
-        socket.current.on('getUsers', users => {
-            console.log(users)
-        })
-    }, [user])
-
-    useEffect(() => {
-        const getUser = async () => {
-            await api.get('/users/@me', {
+    const execUseEffects = () => {
+        useEffect(() => {
+            socket.current = io("https://ws.glowapp.eu/", {
                 headers: {
-                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                }
-            }).then((res) => {
-                setUser(res.data)
+                    "Access-Control-Allow-Origin": "*"
+                },
+                transports: ["polling"]
             })
-            .catch(err => {
-                console.error(err)
-                setError(err)
+            socket.current.on("getMessage", data => {
+                setArrivalMessage({
+                    sender: data.senderId,
+                    text: data.text,
+                    createdAt: Date.now()
+                })
             })
-        }
-        getUser()
-        
-        const getConvs = async () => {
-            await api.get('/conversations', {
-                headers: {
-                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                }
-            }).then(res => {
-                setConversations(res.data)
-                setLoading(false)
+        }, [])
+    
+        useEffect(() => {
+            arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages(prev => [...prev, arrivalMessage])
+        }, [arrivalMessage, currentChat])
+    
+        useEffect(() => {
+            if(user === null) return
+            socket.current.emit("addUser", user.id)
+            socket.current.on('getUsers', users => {
+                console.log(users)
             })
-            .catch(err => {
-                console.error(err)
-                setError(err)
-            })
-        }
-        getConvs()
-        
-    }, [])
-
-    useEffect(() => {
-        const getMessages = async () => {
-            await api.get('/conversations/' + currentChat.conversationId + '/messages', {
-                headers: {
-                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                }
-            }).then(res => {
-                setMessages(res.data)
-            }).catch(err => setError(err))
-        }
-        if(conversations.length)
-            getMessages()
-        
-    }, [currentChat])
+        }, [user])
+    
+        useEffect(() => {
+            const getUser = async () => {
+                await api.get('/users/@me', {
+                    headers: {
+                        "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then((res) => {
+                    setUser(res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                    setError(err)
+                })
+            }
+            getUser()
+            
+            const getConvs = async () => {
+                await api.get('/conversations', {
+                    headers: {
+                        "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then(res => {
+                    setConversations(res.data)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    console.error(err)
+                    setError(err)
+                })
+            }
+            getConvs()
+            
+        }, [])
+    
+        useEffect(() => {
+            const getMessages = async () => {
+                await api.get('/conversations/' + currentChat.conversationId + '/messages', {
+                    headers: {
+                        "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then(res => {
+                    setMessages(res.data)
+                }).catch(err => setError(err))
+            }
+            if(conversations.length)
+                getMessages()
+            
+        }, [currentChat])
+    }
+    execUseEffects()
 
     const handleSendMessage = async (e) => {
         e.preventDefault()
@@ -165,7 +173,13 @@ function Chat() {
                             <div className="chatBoxTop">
                                 {messages.map((m, key) => (
                                     <div ref={scrollRef}>
-                                        <Message key={key} message={m} own={m.authorId === user.id} />
+                                        <Message
+                                            key={key}
+                                            message={m}
+                                            user={user}
+                                            own={m.authorId === user.id}
+                                            currentChat={currentChat}
+                                        />
                                     </div>
                                 ))}
                                 
