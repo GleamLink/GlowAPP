@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from "preact/hooks";
 
 import { format } from 'timeago.js'
 import { api } from '../../Utils/Common'
+import { Avatar } from "@mui/material";
 
 function Message({ message, own /*is message from user*/, currentChat, user }) {
 
     const [chatUser, setChatUser] = useState([])
+    const [avatarUrl, setAvatarUrl] = useState('')
 
     const timestamp = new Date(message.timestamp * 1000)
     
@@ -19,16 +21,19 @@ function Message({ message, own /*is message from user*/, currentChat, user }) {
             headers: {
                 "authorization": 'Bearer ' + sessionStorage.getItem('token')
             }
-        }).then(res => setChatUser(res.data))
+        }).then(res => {
+            setChatUser(res.data)
+            setAvatarUrl("https://api.glowapp.eu/forest/assets/avatars/" + res.data.avatar)
+        })
         .catch(err => console.log(err))
     }, [receiverId])
 
     return (
         <div className={own ? "message own" : "message"}>
             <div className="top">
-                <img
+                <Avatar
                     className="img"
-                    src="https://cdn.discordapp.com/avatars/471238565033148427/121f385ebe564b8441ec617ced1e5d4e.webp"
+                    src={avatarUrl}
                     alt=""
                 />
                 <p className="username">{own ? user.username : chatUser.username}</p>

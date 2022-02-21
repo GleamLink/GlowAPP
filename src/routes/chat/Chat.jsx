@@ -57,42 +57,36 @@ function Chat() {
             })
         }, [user])
     
-        useEffect(() => {
-            const getUser = async () => {
-                await api.get('/users/@me', {
-                    headers: {
-                        "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                    }
-                }).then((res) => {
-                    setUser(res.data)
-                })
-                .catch(err => {
-                    console.error(err)
-                    setError(err)
-                })
-            }
-            getUser()
+        useEffect(async () => {
+            await api.get('/users/@me', {
+                headers: {
+                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((res) => {
+                setUser(res.data)
+            })
+            .catch(err => {
+                console.error(err)
+                setError(err)
+            })
             
-            const getConvs = async () => {
-                await api.get('/conversations', {
-                    headers: {
-                        "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                    }
-                }).then(res => {
-                    setConversations(res.data)
-                    setLoading(false)
-                })
-                .catch(err => {
-                    console.error(err)
-                    setError(err)
-                })
-            }
-            getConvs()
+            await api.get('/conversations', {
+                headers: {
+                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then(res => {
+                setConversations(res.data)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err)
+                setError(err)
+            })
             
         }, [])
     
-        useEffect(() => {
-            const getMessages = async () => {
+        useEffect(async () => {
+            if(conversations.length)
                 await api.get('/conversations/' + currentChat.conversationId + '/messages', {
                     headers: {
                         "authorization": 'Bearer ' + sessionStorage.getItem('token')
@@ -100,9 +94,6 @@ function Chat() {
                 }).then(res => {
                     setMessages(res.data)
                 }).catch(err => setError(err))
-            }
-            if(conversations.length)
-                getMessages()
             
         }, [currentChat])
     }
@@ -150,8 +141,12 @@ function Chat() {
                         <input placeholder="Search..." className="searchInput" />
                         {loading && (<h1>Loading...</h1>)}
                         {conversations.length ? conversations.map((conv, key) => {
+                            const receiverId = conv.members.find(
+                                member => member !== user.id
+                            )
+                            console.log(receiverId)
                             return (<div onClick={() => setCurrentChat(conv)}>
-                                <Conversation key={key} conv={conv} user={user} />
+                                <Conversation receiverId={receiverId} />
                             </div>)
                         }) : (<span style={
                             {
@@ -161,17 +156,13 @@ function Chat() {
                                 textAlign: "center"
                             }
                         }>No conversations...</span>)}
-                        {/* <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation /> */}
                     </div>
                 </div>
                 <div className="box">
                     <div className="boxWrapper">
                         {currentChat ? <>
                             <div className="chatBoxTop">
-                                {messages.map((m, key) => (
+                                {messages.length ? messages.map((m, key) => (
                                     <div ref={scrollRef}>
                                         <Message
                                             key={key}
@@ -181,7 +172,11 @@ function Chat() {
                                             currentChat={currentChat}
                                         />
                                     </div>
-                                ))}
+                                )) : (
+                                    <div className="noMessages">
+                                        <span className="text">No messages present in this conversation...</span>
+                                    </div>
+                                )}
                                 
 
                             </div>

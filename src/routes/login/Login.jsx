@@ -34,31 +34,35 @@ function Login() {
 
     return (
         <>
-            <h1 className="title">Login</h1>
-            <div className="loginForm">
-                <input
-                    type="text"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="loginTextInput"
-                    placeholder="Email"
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="loginTextInput"
-                    placeholder="Password"
-                />
-                <input
-                    type="button"
-                    value={loading ? "Loading..." : "Login"}
-                    disabled={loading}
-                    className="loginButtonInput"
-                    onClick={onClickHandler}
-                >Login</input>
-                {error && <p className="error">{error}</p>}
-                <p className="noAcc">Have no account? Click <a href="/register">here</a> to make one.</p>
+            <div className="loginContainer">
+                <div className="loginForm">
+                    <h1 className="loginTitle">Login</h1>
+                    <span className="loginTextLabel">E-mail Address</span>
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        className="loginTextInput"
+                        placeholder="Enter your E-mail"
+                    />
+                    <span className="loginTextLabel">Password</span>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        className="loginTextInput"
+                        placeholder="Enter your Password"
+                    />
+                    <input
+                        type="button"
+                        value={loading ? "Loading..." : "Login"}
+                        disabled={loading}
+                        className="loginButtonInput"
+                        onClick={onClickHandler}
+                    >Login</input>
+                    <p className="noAcc">Have no account? Click <a href="/register">here</a> to make one.</p>
+                    {error && <p className="error">{error}</p>}
+                </div>
             </div>
         </>
     );

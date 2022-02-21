@@ -3,32 +3,28 @@ import { useEffect, useState } from "preact/hooks";
 import { api } from "../../Utils/Common";
 import "./_conversations.scss"
 
-function Conversation({ conv, user }) {
+function Conversation({ receiverId }) {
 
     const [convUser, setConvUser] = useState([])
-    const [avatarUrl, setAvatarUrl] = useState('')
 
-    useEffect(() => {
-        console.log(user, conv)
-        const friendId = conv.members.find((m) => m !== user.id)
-        console.log("F: " + friendId)
-        
-        api.get('/users/' + friendId, {
+    useEffect(async () => {        
+        await api.get('/users/' + receiverId, {
             headers: {
                 "authorization": 'Bearer ' + sessionStorage.getItem('token')
             }
         }).then(res => {
             setConvUser(res.data)
-            setAvatarUrl("https://api.glowapp.eu/forest/assets/avatars/" + res.data.avatar)
         }).catch(err => {
             console.log(err)
         })
         
-    }, [user, conv])
+    }, [])
+
+    console.log(convUser)
 
     return (
         <div className="conversation">
-            <Avatar className="img" src={avatarUrl} alt="" />
+            <Avatar className="img" src={"https://api.glowapp.eu/forest/assets/avatars/" + convUser.avatar} alt="" />
             <span className="name">{convUser.username}</span>
         </div>
     );
