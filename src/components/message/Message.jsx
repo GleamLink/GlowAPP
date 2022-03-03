@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "preact/hooks";
 
 import { format } from 'timeago.js'
 import { api } from '../../Utils/Common'
-import { Avatar } from "@mui/material";
+import { Avatar, Skeleton } from "@mui/material";
 
-function Message({ message, own /*is message from user*/, currentChat, user }) {
+function Message({ message, own /*is message from user*/, currentChat, user, loading }) {
 
     const [chatUser, setChatUser] = useState([])
     const [avatarUrl, setAvatarUrl] = useState('')
@@ -28,12 +28,31 @@ function Message({ message, own /*is message from user*/, currentChat, user }) {
         .catch(err => console.log(err))
     }, [receiverId])
 
-    return (
+    if(loading) return (
+        <div className={own ? "message own" : "message"}>
+            <div className="top" style={{ position: "relative", marginBottom: "50px" }}>
+                <Skeleton
+                    animation="wave"
+                    variant="circle"
+                    width={40}
+                    height={40}
+                    className="img"
+                    sx={{ marginRight: "10px" }}
+                />
+                <Skeleton width={100} />
+                <Skeleton width={120} height={50} sx={{ position: "absolute", top: "50px" }} />
+                
+            </div>
+        </div>
+            
+        
+    )
+    else return (
         <div className={own ? "message own" : "message"}>
             <div className="top">
                 <Avatar
                     className="img"
-                    src={avatarUrl}
+                    src={"https://api.glowapp.eu/forest/assets/avatars/" + (own ? user.avatar : chatUser.avatar)}
                     alt=""
                 />
                 <p className="username">{own ? user.username : chatUser.username}</p>

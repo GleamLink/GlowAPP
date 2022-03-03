@@ -33,3 +33,16 @@ export const setUserSession = (token) => {
 export const removeUserSession = () => {
     sessionStorage.removeItem("token")
 }
+
+
+
+export const genBase64 = (file, cb) => {
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+        return cb(null, reader.result)
+    }
+    reader.onerror = (err) => {
+        return cb(err, null)
+    }
+}

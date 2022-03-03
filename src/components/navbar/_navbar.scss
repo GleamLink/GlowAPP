@@ -19,41 +19,104 @@
         .computer {
             width: 100%;
             display: flex;
+            justify-content: space-between;
             .navbarResponsiveMenu {
                 display: none;
             }
             .rightSide {
                 display: flex;
-                float: right;
+                .navbarListItem {
+                    float: right;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    border-radius: 10px;
+                    transition: 0.3s;
+                    padding: 10px 15px;
+                    margin: 2px 3px;
+                    text-decoration: none;
+                
+                    .icon {
+                        transition: 0.3s;
+                        color: #414141;
+                        font-size: 20px;
+                    }
+                    span {
+                        transition: 0.3s;
+                        color: #5a5a5a;
+                        font-size: 15px;
+                        margin-left: 10px;
+                        font-weight: 600;
+                    }
+                }
+                .navbarListItem:hover, .navbarListItem:hover > span, :hover > .icon {
+                    cursor: pointer;
+                    background-color: #252525;
+                    color: white;
+                }
+                .utilIcon {
+                    color: #5a5a5a !important;
+                    align-self: center;
+                    margin-right: 20px;
+                    position: relative;
+                    height: 24px;
+                    width: 24px;
+                    transition: .3s;
+                    .badge {
+                        height: 5px;
+                        width: 5px;
+                        padding: 5px;
+                        background-color: rgb(206, 38, 38);
+                        border-radius: 50%;
+                        font-size: 12px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+
+                        position: absolute;
+                        right: -2px;
+                        top: -2px;
+                    }
+                }
+                .utilIcon:hover {
+                    color: white !important;
+                    cursor: pointer;
+                }
             }
-            .navbarListItem {
+            .leftSide {
                 display: flex;
-                flex-direction: row;
-                align-items: center;
-                border-radius: 10px;
-                transition: 0.3s;
-                padding: 10px 15px;
-                margin: 2px 3px;
-                text-decoration: none;
+                .navbarListItem {
+                    float: right;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    border-radius: 10px;
+                    transition: 0.3s;
+                    padding: 10px 15px;
+                    margin: 2px 3px;
+                    text-decoration: none;
+                
+                    .icon {
+                        transition: 0.3s;
+                        color: #414141;
+                        font-size: 20px;
+                    }
+                    span {
+                        transition: 0.3s;
+                        color: #5a5a5a;
+                        font-size: 15px;
+                        margin-left: 10px;
+                        font-weight: 600;
+                    }
+                }
+                .navbarListItem:hover, .navbarListItem:hover > span, :hover > .icon {
+                    cursor: pointer;
+                    background-color: #252525;
+                    color: white;
+                }
+            }
             
-                .icon {
-                    transition: 0.3s;
-                    color: #414141;
-                    font-size: 20px;
-                }
-                span {
-                    transition: 0.3s;
-                    color: #5a5a5a;
-                    font-size: 15px;
-                    margin-left: 10px;
-                    font-weight: 600;
-                }
-            }
-            .navbarListItem:hover, .navbarListItem:hover > span, :hover > .icon {
-                cursor: pointer;
-                background-color: #252525;
-                color: white;
-            }
         }
         .smartphone {
             display: none;

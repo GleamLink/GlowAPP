@@ -8,7 +8,7 @@ function FollowRequests() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const [test, setTest] = useState(null)
+    const [requests, setRequests] = useState([])
 
     const getUser = (id) => {
         api.get('/users/' + id, {
@@ -36,10 +36,10 @@ function FollowRequests() {
     }, [])
 
     // if(loading) return (<h1>Loading...</h1>)
-    if(!users) return (<></>)
+    if(!requests.length) return (<></>)
     return (
         <div className="requests">
-            {test && test.map((val, key) => {
+            {requests && requests.map((val, key) => {
                 <h1>{val}</h1>
             })}
             {users.map((val, key) => (

@@ -20,8 +20,6 @@ function Conversation({ receiverId }) {
         
     }, [])
 
-    console.log(convUser)
-
     return (
         <div className="conversation">
             <Avatar className="img" src={"https://api.glowapp.eu/forest/assets/avatars/" + convUser.avatar} alt="" />

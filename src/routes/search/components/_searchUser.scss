@@ -1,24 +1,33 @@
-.user {
+.userContainer {
     width: 100%;
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    transition: .3s;
-    // .avatar {
+    .userInfo {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-self: center;
+        align-items: center;
+        padding: 10px;
+        transition: .3s;
+        // .avatar {
 
-    // }
-    .information {
-        margin-left: 10px;
-        .username {
-            color: white;
+        // }
+        .information {
+            margin-left: 10px;
+            .username {
+                color: white;
+            }
+            .bio {
+                color: #8e8e8e;
+            }
         }
-        .bio {
-            color: #8e8e8e;
-        }
+        // .followBtn {
+        //     position: absolute;
+        //     right: 0;
+        //     margin-right: 10px;
+        // }
     }
-    .followBtn {
-        position: absolute;
-        right: 0;
-        margin-right: 10px;
+    .userInfo:hover {
+        cursor: pointer;
+        background-color: #333;
     }
 }

@@ -19,6 +19,42 @@
         .baseContainer {
             display: flex;
             height: 100px;
+            .avatarContainer {
+                width: 100px;
+                height: 100px;
+                position: relative;
+                .avatarInput {
+                    z-index: 1;
+                    width: inherit;
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    text-indent: -999em;
+                }
+                .hide {
+                    display: flex;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(0, 0, 0, 0.750);
+                    transition: .7s;
+                    position: absolute;
+                    height: 100%;
+                    border-radius: 50%;
+                    align-items: center;
+                    p {
+                        font-size: 12px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    
+                }
+                .avatarInput:hover {
+                    cursor: pointer;
+                }
+                .avatar {
+                    
+                }
+            }
             .testImg {
                 background-color: green;
                 width: 100px;

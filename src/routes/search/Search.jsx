@@ -5,7 +5,7 @@ import { api } from "../../Utils/Common";
 import SearchUser from "./components/SearchUser";
 import "./_search.scss"
 
-function Search() {
+function Search(props) {
 
     const [search, setSearch] = useState("");
     const [searchUser, setSearchUser] = useState(null)
@@ -25,7 +25,7 @@ function Search() {
 
     return (
         <>
-            <NavBar />
+            <NavBar socket={props.socket} />
             <div className="searchPage">
                 <input 
                     className="searchInput"
@@ -35,7 +35,7 @@ function Search() {
                 />
                 
                 {search.length && search.map((value, key) => {
-                    return <SearchUser user={value} key={value.id} btnClick={() => {  }} />
+                    return <SearchUser user={value} key={value.id} />
                 })}
 
                 {error && (

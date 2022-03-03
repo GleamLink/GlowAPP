@@ -17,7 +17,9 @@
     "preact-router": "^4.0.0",
     "react-router-dom": "^5.2.0",
     "sass": "^1.47.0",
+    "simple-peer": "^9.11.1",
     "socket.io-client": "^4.4.1",
+    "styled-components": "^5.3.3",
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {

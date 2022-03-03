@@ -17,10 +17,10 @@ import react from "react"
 import { getToken, removeUserSession } from "../../Utils/Common";
 import { useEffect, useState } from "preact/hooks";
 import { Divider, Drawer, IconButton, SwipeableDrawer } from "@mui/material";
-import { ChevronLeft } from "@mui/icons-material";
+import { ChevronLeft, Notifications } from "@mui/icons-material";
 
 
-function NavBar() {
+function NavBar(props) {
 
     const [isResponsiveNavbarOpen, setNavbarOpen] = useState(false)
 
@@ -33,60 +33,58 @@ function NavBar() {
             <div className="navBar">
                 <ul className="navbarList">
                     <div className="computer">
-                        <li>
-                            <a href="/" className="navbarListItem">
-                                <HomeIcon className="icon"/>
-                                <span>Home</span>
+                        <div className="leftSide">
+                            <li>
+                                <a href="/" className="navbarListItem">
+                                    <HomeIcon className="icon"/>
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/search" className="navbarListItem">
+                                    <SearchIcon className="icon"/>
+                                    <span>Search</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/chat" className="navbarListItem">
+                                    <ChatIcon className="icon"/>
+                                    <span>Chat</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/posts" className="navbarListItem">
+                                    <PhotoLibraryIcon className="icon"/>
+                                    <span>Posts</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/communities" className="navbarListItem">
+                                    <PeopleIcon className="icon"/>
+                                    <span>Communities</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/tunes" className="navbarListItem">
+                                    <PlayCircleFilledIcon className="icon"/>
+                                    <span>Tunes</span>
+                                </a>
+                            </li>
+                        </div>
+                        
+                        <div className="rightSide">
+                            <a className="utilIcon">
+                                <Notifications />
+                                <div className="badge">2</div>
                             </a>
-                        </li>
-                        <li>
-                            <a href="/search" className="navbarListItem">
-                                <SearchIcon className="icon"/>
-                                <span>Search</span>
+                            <a className="utilIcon" href="/profile">
+                                <AccountCircleIcon />
                             </a>
-                        </li>
-                        <li>
-                            <a href="/chat" className="navbarListItem">
-                                <ChatIcon className="icon"/>
-                                <span>Chat</span>
+                            <a className="utilIcon" onClick={handleLogout}>
+                                <LogoutIcon />
                             </a>
-                        </li>
-                        <li>
-                            <a href="/posts" className="navbarListItem">
-                                <PhotoLibraryIcon className="icon"/>
-                                <span>Posts</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/communities" className="navbarListItem">
-                                <PeopleIcon className="icon"/>
-                                <span>Communities</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tunes" className="navbarListItem">
-                                <PlayCircleFilledIcon className="icon"/>
-                                <span>Tunes</span>
-                            </a>
-                        </li>
-                        {sessionStorage.getItem('token') ? (
-                            <div className="rightSide">
-                                <li>
-                                    <a href="/profile" className="navbarListItem" >
-                                        <AccountCircleIcon className="icon"/>
-                                        <span>Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="navbarListItem" onClick={handleLogout} >
-                                        <LogoutIcon className="icon"/>
-                                        <span>Logout</span>
-                                    </a>
-                                </li>
-                            </div>
+                        </div>
                                 
-                            
-                        ): (<></>)}
                     </div>
                     <div className="smartphone">
                         <li>

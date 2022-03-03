@@ -1,6 +1,6 @@
 import "./_chatonline.scss"
 
-function ChatOnline() {
+function ChatOnline({ user }) {
     return (
         <div className="chatOnlineContainer">
             <div className="friend">
@@ -8,7 +8,7 @@ function ChatOnline() {
                     <img className="" src="https://cdn.discordapp.com/avatars/471238565033148427/121f385ebe564b8441ec617ced1e5d4e.webp" />
                     <div className="badge"></div>
                 </div>
-                <div className="username">John Doe</div>
+                <div className="username">{user.username}</div>
             </div>
         </div>
     );

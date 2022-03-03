@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import NavBar from "../../components/navbar/NavBar";
 import StatusShower from "../../components/statusshower/StatusShower";
-import { api, getUser } from "../../Utils/Common";
+import { api, genBase64, getUser } from "../../Utils/Common";
 import './_profile.scss'
 
 // ICONS
@@ -33,6 +33,8 @@ function Profile() {
     const [inputUsername, setInputUsername] = useState(null)
 
     const [isFirstOpen, setIsFirstOpen] = useState(false)
+
+    const [newAvatar, setNewAvatar] = useState(null)
     
     const obscureEmail = (email) => {
         const [name, domain] = email.split('@');
@@ -62,6 +64,8 @@ function Profile() {
         setHoverMsg("Copied!")
     }
 
+    const [isHovering, setIsHovering] = useState(false)
+
     if(isLoading) return ("Loading")
     return (
         <>
@@ -70,13 +74,26 @@ function Profile() {
             <div className="profile">
                 <div className="topContainer">
                     <div className="baseContainer">
-                        <Badge 
-                            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                            variant="dot"
-                            color="primary"
-                        >
-                            <Avatar src={ avatarUrl } sx={{ width: 100, height: 100 }} style={{"font-size": "40px"}} >{ user.username[0] }</Avatar>
-                        </Badge>
+                        <div className="avatarContainer" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+                            <input type="file" className="avatarInput" onChange={e => {
+                                console.log(e.target.files[0])
+                                genBase64(e.target.files[0], (err, res) => {
+                                    if(err) return console.log(err)
+                                    setNewAvatar(res)
+                                })
+                            }} />
+                            <Avatar
+                                src={ newAvatar ? newAvatar : avatarUrl }
+                                className="avatar"
+                                sx={{ width: 100, height: 100 }}
+                                style={{"font-size": "40px"}} 
+                            >{ user.username[0] }</Avatar>
+                            {isHovering && 
+                                <div className="hide">
+                                    <p>Click to change avatar</p>
+                                </div>}
+                            
+                        </div>
                         <div className="usernameContainer">
                             <p className="username">{ user.username }</p>
                             <div className="userIdContainer">
