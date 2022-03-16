@@ -5,19 +5,19 @@ import "./_home.scss";
 import { Publish } from '@mui/icons-material';
 
 import { api } from "../../Utils/Common";
-import { useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 function Home() {
 
+    const [user, setUser] = useState(null)
+    
     useEffect(() => {
         api.get("/auth/account", {
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             }
         }).then(res => {
-            this.setState({
-                user: res.data
-            })
+            setUser(res.data)
         })
     }, [])
     
