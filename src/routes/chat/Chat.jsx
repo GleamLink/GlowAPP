@@ -14,9 +14,7 @@ import { io } from "socket.io-client"
 import { sendSocketMessage } from "../../Utils/SocketIO.js";
 import { Skeleton } from "@mui/material";
 
-function Chat(props, { socket }) {
-
-    console.log("Socket: " + socket)
+function Chat(props) {
 
     const [loading, setLoading] = useState(true)
     const [msgLoading, setMsgLoading] = useState(false)
@@ -31,13 +29,20 @@ function Chat(props, { socket }) {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("")
     const [arrivalMessage, setArrivalMessage] = useState(null)
+
+    const [onlineUsers, setOnlineUsers] = useState([])
+
     const scrollRef = useRef()
 
     const convId = props.match.params.convId || null
     
-    useEffect(() => console.log(socket), [socket])
+    const [socket, setSocket] = useState(io('https://ws.glowapp.eu/'));
 
     const execUseEffects = () => {
+
+        useEffect(() => {
+            setSocket(io('https://ws.glowapp.eu/'))
+        }, []);
 
         useEffect(() => {
             socket.on("getMessage", data => {
@@ -47,7 +52,7 @@ function Chat(props, { socket }) {
                     createdAt: Date.now()
                 })
             })
-        }, [])
+        }, [socket])
     
         useEffect(() => {
             arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
@@ -58,7 +63,7 @@ function Chat(props, { socket }) {
             if(user === null) return
             socket?.emit("addUser", user.id)
             socket?.on('getUsers', users => {
-                console.log(users)
+                setOnlineUsers(users)
             })
         }, [user])
     
@@ -136,7 +141,7 @@ function Chat(props, { socket }) {
     }
 
     useEffect(() => {
-        scrollRef.current.scrollIntoView()
+        scrollRef.current?.scrollIntoView()
     }, [messages])
 
     return (
@@ -173,14 +178,17 @@ function Chat(props, { socket }) {
                             <div className="chatBoxTop">
                                 
                                 {messages.length ? messages.map((m, key) => (
-                                    <Message
-                                        key={key}
-                                        message={m}
-                                        user={user}
-                                        own={m.authorId === user.id}
-                                        currentChat={currentChat}
-                                        loading={msgLoading}
-                                    />
+                                    <div ref={scrollRef}>
+                                        <Message
+                                            key={key}
+                                            message={m}
+                                            user={user}
+                                            own={m.authorId === user.id}
+                                            currentChat={currentChat}
+                                            loading={msgLoading}
+                                        />
+                                    </div>
+                                    
                                     
                                 )) : (
                                     <div className="noMessages">
@@ -201,42 +209,37 @@ function Chat(props, { socket }) {
                                                 
                                             }
                                             else if(!e.shiftKey && e.key === 'Enter') {
-                                                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " + e.target.value);
                                                 handleSendMessage(e)
                                             }
                                         }}
                                         value={newMessage}
                                     />
-                                    <EmojiEmotions
+                                    {/* <EmojiEmotions
                                         onClick={handleEmojiListClick}
                                         className="chatInputEmojiSelector"
-                                    />
+                                    /> */}
                                 </div>
                                 <button
                                     className="chatSubmit"
                                     onClick={handleSendMessage}
-                                    disabled={newMessage !== "" ? false : true}
-                                    style={ newMessage !== "" ? "cursor: pointer" : "cursor: no-drop" }
+                                    disabled={!newMessage.replace(/\s/g, '').length ? true : false}
+                                    style={ !newMessage.replace(/\s/g, '').length ? "cursor: no-drop" : "cursor: pointer" }
                                 >Send</button>
                             </div>
                         </> : <span className="noConv">Click left to open a conversation</span>}
                         
                     </div>
                 </div>
-                <div className="online">
+                {/* <div className="online">
                     <div className="onlineWrapper">
-                        {currentChat && currentChat.members.map((user, key) => {
-                            api.get('/users/' + user, {
-                                headers: {
-                                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                                }
-                            }).then(res => {
-                                return (<ChatOnline user={res.data} />)
-                            })
+                        <ChatOnline
+                            onlineUsers={onlineUsers}
+                            user={user}
+                            setCurrentChat={setCurrentChat}
+                        />
                             
-                        })}
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
         

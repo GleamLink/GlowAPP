@@ -51,7 +51,7 @@ function Profile() {
         }).then(res => {
             setUser(res.data)
             setObscuredMail(obscureEmail(res.data.email))
-            setAvatarUrl("https://api.glowapp.eu/forest/assets/avatars/" + res.data.avatar)
+            setAvatarUrl("https://forest.glowapp.eu/assets/avatars/" + res.data.avatar)
             setIsLoading(false)
         })
         
@@ -66,6 +66,21 @@ function Profile() {
 
     const [isHovering, setIsHovering] = useState(false)
 
+    const handlePostNewAvatar = (base64, password) => {
+        try {
+            api.patch("users/@me", {
+                "password": "c3cemel",
+                "avatar": base64
+            }, {
+                headers: {
+                "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+        } catch (err) {
+            
+        }
+    }
+
     if(isLoading) return ("Loading")
     return (
         <>
@@ -79,6 +94,7 @@ function Profile() {
                                 console.log(e.target.files[0])
                                 genBase64(e.target.files[0], (err, res) => {
                                     if(err) return console.log(err)
+                                    handlePostNewAvatar(res)
                                     setNewAvatar(res)
                                 })
                             }} />

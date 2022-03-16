@@ -9,7 +9,7 @@ export const getToken = () => {
     
 }
 export const api = axios.create({
-    baseURL: "https://api.glowapp.eu/api"
+    baseURL: "https://api.glowapp.eu"
 })
 export const getUser = () => {
     try {

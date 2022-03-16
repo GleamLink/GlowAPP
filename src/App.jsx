@@ -26,6 +26,7 @@ import Chat from "./routes/chat/Chat";
 import Users from "./routes/users/Users";
 import { io } from "socket.io-client";
 import { createContext } from "preact";
+import Admin from "./routes/admin/Admin";
 // import Room from "./routes/voiceroom/room/Room";
 
 export function App(props) {
@@ -82,12 +83,12 @@ export function App(props) {
           <PublicRoute exact path="/register" component={Register} />
 
           <PrivateRoute exact path="/search" component={Search} />
-          <PrivateRoute exact path="/chat" component={Chat} />
-          <PrivateRoute exact path="/chat/:convId" component={Chat} />
+          <PrivateRoute exact path="/chat" component={Chat} socket={socket} />
           <PrivateRoute exact path="/posts" component={Posts} />
           <PrivateRoute exact path="/communities" component={Communities} />
           <PrivateRoute exact path="/tunes" component={Tunes} />
           <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/admin" component={Admin} />
 
           <Route exact path="*" component={NotFound} />
         {/* </SocketContext.Provider> */}

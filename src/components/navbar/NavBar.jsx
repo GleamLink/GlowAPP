@@ -13,8 +13,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import DehazeIcon from '@mui/icons-material/Dehaze';
 
+import { LightMode, AdminPanelSettings } from '@mui/icons-material';
+
 import react from "react"
-import { getToken, removeUserSession } from "../../Utils/Common";
+import { api, getToken, removeUserSession } from "../../Utils/Common";
 import { useEffect, useState } from "preact/hooks";
 import { Divider, Drawer, IconButton, SwipeableDrawer } from "@mui/material";
 import { ChevronLeft, Notifications } from "@mui/icons-material";
@@ -23,11 +25,28 @@ import { ChevronLeft, Notifications } from "@mui/icons-material";
 function NavBar(props) {
 
     const [isResponsiveNavbarOpen, setNavbarOpen] = useState(false)
+    const [isAdmin, setAdmin] = useState(false)
 
     const handleLogout = () => {
         removeUserSession()
         window.location.reload(false)
     }
+
+    useEffect(() => {
+        try {
+            api.get('/users/@me/isAdmin', {
+                headers: {
+                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then(res => {
+                console.log(res.data)
+                setAdmin(res.data)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }, [])
+
     return (
         <>
             <div className="navBar">
@@ -73,9 +92,21 @@ function NavBar(props) {
                         </div>
                         
                         <div className="rightSide">
+                            {
+                                isAdmin &&
+                                (
+                                    <a href="/admin" className="utilIcon">
+                                        <AdminPanelSettings />
+                                    </a>
+                                )
+                            }
+                            
                             <a className="utilIcon">
                                 <Notifications />
                                 <div className="badge">2</div>
+                            </a>
+                            <a className="utilIcon">
+                                <LightMode />
                             </a>
                             <a className="utilIcon" href="/profile">
                                 <AccountCircleIcon />

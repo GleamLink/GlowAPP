@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: #1e1e1e;
+    background-color: #eeeeee;//#1e1e1e;
     .checkBtn {
         font-size: 25px;
         color: white;
@@ -49,10 +49,10 @@
                         font-weight: 600;
                     }
                 }
-                .navbarListItem:hover, .navbarListItem:hover > span, :hover > .icon {
+                .navbarListItem:hover > span, :hover > .icon {
                     cursor: pointer;
                     background-color: #252525;
-                    color: white;
+                    color: rgb(117, 117, 117);//white;
                 }
                 .utilIcon {
                     color: #5a5a5a !important;
@@ -110,10 +110,16 @@
                         font-weight: 600;
                     }
                 }
-                .navbarListItem:hover, .navbarListItem:hover > span, :hover > .icon {
-                    cursor: pointer;
-                    background-color: #252525;
-                    color: white;
+                // .navbarListItem:hover {
+                //     cursor: pointer;
+                //     background-color: #b22222;//#252525;
+                //     color: white;
+                // }
+                // .navbarListItem:hover > span, :hover > .icon {
+                //     color: #b22222;
+                // }
+                .navbarListItem .icon {
+                    color: #b22222;
                 }
             }
             

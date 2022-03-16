@@ -28,26 +28,26 @@ function Message({ message, own /*is message from user*/, currentChat, user, loa
         .catch(err => console.log(err))
     }, [receiverId])
 
-    if(loading) return (
-        <div className={own ? "message own" : "message"}>
-            <div className="top" style={{ position: "relative", marginBottom: "50px" }}>
-                <Skeleton
-                    animation="wave"
-                    variant="circle"
-                    width={40}
-                    height={40}
-                    className="img"
-                    sx={{ marginRight: "10px" }}
-                />
-                <Skeleton width={100} />
-                <Skeleton width={120} height={50} sx={{ position: "absolute", top: "50px" }} />
+    // if(loading) return (
+    //     <div className={own ? "message own" : "message"}>
+    //         <div className="top" style={{ position: "relative", marginBottom: "50px" }}>
+    //             <Skeleton
+    //                 animation="wave"
+    //                 variant="circle"
+    //                 width={40}
+    //                 height={40}
+    //                 className="img"
+    //                 sx={{ marginRight: "10px" }}
+    //             />
+    //             <Skeleton width={100} />
+    //             <Skeleton width={120} height={50} sx={{ position: "absolute", top: "50px" }} />
                 
-            </div>
-        </div>
+    //         </div>
+    //     </div>
             
         
-    )
-    else return (
+    // )
+    /*else*/ return (
         <div className={own ? "message own" : "message"}>
             <div className="top">
                 <Avatar

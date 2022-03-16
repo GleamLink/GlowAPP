@@ -1,6 +1,7 @@
 .message {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     margin: 15px;
     margin-top: 0;
     .top {
@@ -25,9 +26,10 @@
         .text {
             padding: 15px;
             border-radius: 10px;
-            background-color: rgb(70, 70, 70);
+            color: white;
+            background-image: linear-gradient(130deg, #D62121, #C72C2C);
             margin-top: 5px;
-            max-width: 400px;
+            // max-width: 400px;
         }
     }
 
@@ -36,7 +38,7 @@
 .own {
     align-items: flex-end;
     .bottom .text { /*is message from own user*/
-        background-color: rgb(114, 114, 114);
+        background-image: linear-gradient(130deg, #7e7e7e, #727272);
         font-weight: 500;
     }
 }

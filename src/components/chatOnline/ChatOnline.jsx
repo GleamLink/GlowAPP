@@ -1,6 +1,14 @@
+import { useEffect, useRef, useState } from "preact/hooks";
 import "./_chatonline.scss"
 
-function ChatOnline({ user }) {
+function ChatOnline({ onlineUsers, user, setCurrentChat }) {
+    const [friends, setFriends] = useState([])
+    const [onlineFriends, setOnlineFriends] = useState([])
+    
+    useEffect(() => {
+        // const getFriend = 
+    }, [])
+
     return (
         <div className="chatOnlineContainer">
             <div className="friend">
