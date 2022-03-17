@@ -1,15 +1,23 @@
 import NavBar from "../../components/navbar/NavBar";
 import "./_home.scss";
 
+import { format } from 'timeago.js'
+
 // Material Icons
-import { Publish } from '@mui/icons-material';
+import { Publish, ThumbUpOffAlt, ThumbUpAlt } from '@mui/icons-material';
 
 import { api } from "../../Utils/Common";
 import { useEffect, useState } from "preact/hooks";
+import { Avatar } from "@mui/material";
 
 function Home() {
 
     const [user, setUser] = useState(null)
+
+    const [postInput, setPostInput] = useState('')
+    const [posts, setPosts] = useState([])
+
+    const [isLiked, setIsLiked] = useState(false)
     
     useEffect(() => {
         api.get("/auth/account", {
@@ -21,6 +29,33 @@ function Home() {
         })
     }, [])
     
+    useEffect(() => {
+        api.get('/posts', {
+            headers: {
+                "authorization": 'Bearer ' + sessionStorage.getItem('token')
+            }
+        }).then(res => {
+            setPosts(res.data)
+        })
+    }, [])
+
+    const createPostHandler = (e) => {
+        console.log(e)
+        if(e.key === "Enter" || e.type === "click") {
+            if(!postInput.replace(/\s/g, '').length === "") return console.log("No valid message")
+            api.post('/posts', {
+                "description": postInput
+            }, {
+                headers: {
+                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then(res => {
+                setPosts([res.data, ...posts])
+                setPostInput('')
+            }).catch(err => console.log(err))
+        }
+    }
+    
     
     return (
         <div className="home">
@@ -28,12 +63,42 @@ function Home() {
             <div className="homePage">
                 <div className="centerPage">
                     <div className="sendPost">
-                        <input className="input" placeholder="Create a post..." />
-                        <Publish className="icon" title="Hey" />
+                        <input
+                            className="input"
+                            placeholder="Create a post..."
+                            value={postInput}
+                            onChange={e => setPostInput(e.target.value)}
+                            onKeyDown={createPostHandler}
+                        />
+                        <div className="vLine" /> {/* Vertical line separator */}
+                        <Publish className="icon" title="Hey" onClick={createPostHandler} />
                     </div>
-                    <div className="post">
-
+                    <div className="postsContainer">
+                        {posts.map((val, key) => {
+                            return (
+                                <div className="post">
+                                        <div className="user">
+                                            <Avatar className="avatar" />
+                                            <div className="right">
+                                                <span className="username">{val.username}</span>
+                                                <span className="timeAgo">{format(new Date(val.createdAt * 1000), "fr_FR")}</span>
+                                            </div>
+                                            
+                                        </div>
+                                        {val.description && <p>{val.description}</p>}
+                                        <hr />
+                                        <div className="opinion">
+                                            {isLiked ? 
+                                                <ThumbUpAlt className="likedIcon" onClick={() => setIsLiked(false)} /> : 
+                                                <ThumbUpOffAlt className="likeIcon" onClick={() => setIsLiked(true)} />
+                                            }
+                                            <input className="commentInput" type="text" placeholder="Add comment..." />
+                                        </div>
+                                    </div>
+                                )
+                        })}
                     </div>
+                    
                 </div>
                 
             </div>

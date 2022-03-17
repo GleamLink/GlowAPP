@@ -13,7 +13,9 @@
             position: relative;
             display: flex;
             margin: auto;
-            width: 50%;
+            width: 500px;
+            max-width: 90%;
+            min-width: 50%;
             height: 100%;
             flex-direction: column;
             .sendPost {
@@ -48,13 +50,76 @@
                     transform: rotate(360deg);
                 }
             }
-            .post {
-                width: 100%;
-                border-radius: 20px;
-                box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-                -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-                -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+            .postsContainer {
+                position: relative;
+                top: 50px;
+                .post {
+                    width: calc(100% - 20px);
+                    border-radius: 10px;
+                    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+                    -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+                    -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+                    padding: 10px;
+                    margin-bottom: 10px;
+                    .user {
+                        display: flex;
+                        align-items: center;
+                        .avatar {
+                            width: 40px;
+                            height: 40px;
+                        }
+                        .right {
+                            display: flex;
+                            margin-left: 5px;
+                            flex-direction: column;
+                            .timeAgo {
+                                font-size: 13px;
+                            }
+                            .username {
+                                font-weight: 600;
+                            }
+                        }
+                        
+                    }
+                    hr {
+                        margin: 10px 0 10px 0;
+                    }
+                    
+                    .opinion {
+                        display: flex;
+                        align-items: center;
+                        .likeIcon {
+                            transition: .3s;
+                        }
+                        .likeIcon:hover {
+                            cursor: pointer;
+                            color: #838383 !important;
+                        }
+                        .likedIcon {
+                            transition: .3s;
+                            color: #0571ed !important;
+                        }
+                        .likedIcon:hover {
+                            cursor: pointer;
+                        }
+                        .commentInput {
+                            padding: 10px;
+                            margin-left: 10px;
+                            border-radius: 20px;
+                            border: none;
+                            background-color: #f0f0f0;
+                            min-width: 100px;
+                            width: 25%;
+                            transition: width .3s;
+                        }
+                        .commentInput:focus {
+                            outline: none;
+                            width: 40%;
+                        }
+                    }
+                }
             }
+            
         }
         
     }
