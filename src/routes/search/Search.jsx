@@ -13,12 +13,11 @@ function Search(props) {
     const [success, setSuccess] = useState(null)
 
     const handleChange = (e) => {
-        api.get('https://api.glowapp.eu/users/search?searchUser=' + e.target.value, {
+        api.get('/users/search?searchUser=' + e.target.value, {
             headers: {
                 "authorization": 'Bearer ' + sessionStorage.getItem('token')
             }
         }).then(res => {
-            console.log(res.data)
             setSearch(res.data)
         })
     }
