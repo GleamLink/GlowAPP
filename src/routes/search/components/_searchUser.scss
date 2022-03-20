@@ -1,6 +1,7 @@
 .userContainer {
     width: 100%;
     .userInfo {
+        border-radius: 20px;
         position: relative;
         width: 100%;
         display: flex;
@@ -8,13 +9,10 @@
         align-items: center;
         padding: 10px;
         transition: .3s;
-        // .avatar {
-
-        // }
         .information {
             margin-left: 10px;
             .username {
-                color: white;
+                color: rgb(44, 44, 44);
             }
             .bio {
                 color: #8e8e8e;
@@ -28,6 +26,6 @@
     }
     .userInfo:hover {
         cursor: pointer;
-        background-color: #333;
+        background-color: rgb(226, 226, 226);
     }
 }

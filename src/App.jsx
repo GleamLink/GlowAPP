@@ -20,29 +20,28 @@ import NotFound from "./routes/notfound/NotFound";
 
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 
+import React from 'react'
 import { api, getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import { Route } from "preact-router";
 import Chat from "./routes/chat/Chat";
 import Users from "./routes/users/Users";
 import { io } from "socket.io-client";
-import { createContext } from "preact";
 import Admin from "./routes/admin/Admin";
+import Profiles from "./routes/profiles/Profiles";
+import VoiceChat from "./routes/voiceChat/VoiceChat";
 // import Room from "./routes/voiceroom/room/Room";
+
+const SocketContext = React.createContext()
 
 export function App(props) {
   const [loading, setLoading] = useState(false)
   const [authLoading, setAuthLoading] = useState(true)
-  var socket = useRef()
+  var socket = io("https://ws.glowapp.eu/")
   const [userId, setUserId] = useState(null)
-  const SocketContext = createContext()
 
-  // useEffect(() => {
-  //   socket = io("https://ws.glowapp.eu/")
-  //   socket?.on("ping", (msg) => {
-  //     console.log(msg)
-  //     setLoading(false)
-  //   })
-  // }, [socket])
+  useEffect(() => {
+    socket.emit('addUser', userId)
+  }, [socket])
 
   useEffect(() => {
     const token = getToken()
@@ -64,10 +63,6 @@ export function App(props) {
     })
   }, [])
 
-  // useEffect(async () => {
-  //   socket?.emit('addUser', userId)
-  // }, [socket, userId])
-
   if(authLoading && getToken()) {
     return <div className="checkAuth">Checking Authentication...</div>
   }
@@ -76,24 +71,29 @@ export function App(props) {
   return (
     <Router>
       <Switch>
-        {/* <SocketContext.Provider socket={socket}> */}
-          <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute exact path="/" component={Home} />
 
-          <PublicRoute exact path="/login" component={Login} />
-          <PublicRoute exact path="/register" component={Register} />
+        <PublicRoute exact path="/login" component={Login} />
+        <PublicRoute exact path="/register" component={Register} />
 
-          <PrivateRoute exact path="/search" component={Search} />
-          <PrivateRoute exact path="/chat" component={Chat} socket={socket} />
-          <PrivateRoute exact path="/posts" component={Posts} />
-          <PrivateRoute exact path="/communities" component={Communities} />
-          <PrivateRoute exact path="/tunes" component={Tunes} />
-          <PrivateRoute exact path="/profile" component={Profile} />
-          <PrivateRoute exact path="/admin" component={Admin} />
+        <PrivateRoute exact path="/search" component={Search} />
+        <PrivateRoute exact path="/chat">
+          <Chat socket={socket} />
+        </PrivateRoute>
+        <PrivateRoute exact path="/posts" component={Posts} />
+        <PrivateRoute exact path="/communities" component={Communities} />
+        <PrivateRoute exact path="/tunes" component={Tunes} />
+        <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/profiles/:userId">
+          <Profiles socket={socket} />
+        </PrivateRoute>
+        <PrivateRoute exact path="/voice">
+          <VoiceChat socket={socket} />
+        </PrivateRoute>
 
-          <Route exact path="*" component={NotFound} />
-        {/* </SocketContext.Provider> */}
-        {/* {console.log("SSocket: " + socket)} */}
-        
+        <PrivateRoute exact path="/admin" component={Admin} />
+
+        <Route exact path="*" component={NotFound} />        
       </Switch>
       
     </Router>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import { api } from "../../../Utils/Common";
 import "./_searchUser.scss"
 
-function SearchUser({ user }) {
+function SearchUser({ user, props }) {
 
     const TextAbstract = (text, length) => {
         if (text == null) {
@@ -18,17 +18,29 @@ function SearchUser({ user }) {
         return text + "...";
     }
 
+    const clickHandler = () => {
+        api.get('/users/@me', {
+            headers: {
+                "authorization": 'Bearer ' + sessionStorage.getItem('token')
+            }
+        }).then(res => {
+            console.log(user.id, res.data.id, user.id === res.data.id)
+            if(user.id === res.data.id) return props.history.push("/profile")
+            props.history.push("/profiles/" + user.id)
+        })
+    }
+
     return (
-        <div className="userContainer">
-            <div className="userInfo">
-                <Avatar className="avatar" sx={{ width: 56, height: 56 }} src={"https://api.glowapp.eu/forest/assets/avatars/" + user.avatar} alt={user.username} />
+        <div className="userContainer" >
+            <div className="userInfo" onClick={clickHandler}>
+                <Avatar className="avatar" sx={{ width: 56, height: 56 }} src={user.avatar && "https://forest.glowapp.eu/assets/avatars/" + user.avatar} alt={user.username} />
                 <div className="information">
                     <div className="username">
                         {user.username}
                     </div>
                     {user.bio && (
                         <div className="bio">
-                            {TextAbstract(user.bio, 50)}
+                            {TextAbstract(user.bio, 100)}
                         </div>
                     )}
                 </div>

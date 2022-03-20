@@ -85,184 +85,56 @@ function Profile() {
     return (
         <>
             <NavBar />
-            <h1 className="title">Profile</h1>
-            <div className="profile">
-                <div className="topContainer">
-                    <div className="baseContainer">
-                        <div className="avatarContainer" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
-                            <input type="file" className="avatarInput" onChange={e => {
-                                console.log(e.target.files[0])
-                                genBase64(e.target.files[0], (err, res) => {
-                                    if(err) return console.log(err)
-                                    handlePostNewAvatar(res)
-                                    setNewAvatar(res)
-                                })
-                            }} />
-                            <Avatar
-                                src={ newAvatar ? newAvatar : avatarUrl }
-                                className="avatar"
-                                sx={{ width: 100, height: 100 }}
-                                style={{"font-size": "40px"}} 
-                            >{ user.username[0] }</Avatar>
-                            {isHovering && 
-                                <div className="hide">
-                                    <p>Click to change avatar</p>
-                                </div>}
-                            
-                        </div>
-                        <div className="usernameContainer">
-                            <p className="username">{ user.username }</p>
-                            <div className="userIdContainer">
-                                <a className="copyId" onClick={copyIdHandler} onMouseEnter={() => setHoverMsg("Click to copy!")} onMouseLeave={() => setHoverMsg(null)} >
-                                    { user.id }
-                                </a>
-                                <Tooltip title="This is your public user ID. This is an unique ID who is given to you only.">
-                                    <HelpIcon className="helpIconUserId" />
-                                </Tooltip>
-                            </div>
-                            
-                            
-                            {hoverMsg && (
-                                <div className="copyMessage">
-                                    <p>{ hoverMsg }</p>
-                                </div>
-                            )}
-                        </div>
-                        
-                    </div>
-                    <div className="followersFollowing">
-                        <p className="text">Followers</p>
-                        <p className="text">Following</p>
-                    </div>
-                </div>
-                
-                <div className="editableItem"> {/* USERNAME */}
-                    <p className="itemTitle">Username</p>
-                    <p>{ user.username }</p>
-                    <button onClick={() => setIsPopupUsername(true)} className="editBtn">Edit</button>
-                </div>
-                <div className="editableItem">
-                    <p className="itemTitle">Email</p>
-                    <p>{ isObscuredMail ? obscuredMail : user.email } <small 
-                            onClick={() => setIsObscuredMail(!isObscuredMail)} 
-                            className="showEmail"
-                        >{
-                            isObscuredMail ? "Show" : "Hide"
-                        }</small>
-                    </p>
-                    <button onClick={() => setIsPopupEmail(true)} className="editBtn">Edit</button>
-                </div>
-                {isPopupUsername && (
-                    <PopupMenu
-                        title="Change username"
-                        closeHandler={() => setIsPopupUsername(false)}
-                        btnClickHandler={() => {
-                            api.patch('/users/@me', {
-                                "username": inputUsername,
-                                "password": inputPassword
-                            }, {
-                                headers: {
-                                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                                }
-                            }).then((err, res) => {
-                                if(err.status === 200) {
-                                    setIsPopupUsername(false)
-                                    setInputPassword(null)
-                                    setInputOldEmail(null)
-                                    setInputNewEmail(null)
-                                    setInputUsername(null)
 
-                                    setIsFirstOpen(true) // Open snackbar
-                                }
-                            })
-                            
-                        }}
-                    >
-                        <div className="inputContainer">
-                                <p className="infoTitle">New Username</p>
-                                <input 
-                                    className="infoInput"
-                                    type="email"
-                                    placeholder="Enter your new Username."
-                                    onChange={(e) => {
-                                        setInputUsername(e.target.value)
-                                    }}
-                                />
+            <div className="profilePage">
+                    <div className="profileInfo">
+                        <div className="top">
+                            <div className="avatarContainer" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+                                <input type="file" className="avatarInput" onChange={e => {
+                                    console.log(e.target.files[0])
+                                    genBase64(e.target.files[0], (err, res) => {
+                                        if(err) return console.log(err)
+                                        handlePostNewAvatar(res)
+                                        setNewAvatar(res)
+                                    })
+                                }} />
+                                <Avatar
+                                    src={ newAvatar ? newAvatar : avatarUrl }
+                                    className="avatar"
+                                    sx={{ width: 100, height: 100 }}
+                                    style={{"font-size": "40px"}} 
+                                >{ user.username[0] }</Avatar>
+                                {isHovering && 
+                                    <div className="hide">
+                                        <p>Click to change avatar</p>
+                                    </div>}
+                                
                             </div>
-                            <div className="inputContainer">
-                                <p className="infoTitle">Password</p>
-                                <input 
-                                    className="infoInput"
-                                    type="password"
-                                    placeholder="Enter your Password."
-                                    onChange={(e) => {
-                                        setInputPassword(e.target.value)
-                                    }}
-                                />
+                            <div className="topRight">
+                                <span className="username">{user.username}</span>
+                                <span className="followersFollowing">{user.followers.length} followers • {user.following.length} following</span>
                             </div>
-                    </PopupMenu>
-                )}
-                {isPopupEmail && (
-                    <PopupMenu
-                        title="Change Email"
-                        onSuccess={(<Alert severity="success">Account updated successfully</Alert>)}
-                        onError={(<Alert severity="error">Account could not be updated!</Alert>)}
-                        btnClickHandler={() => {
-                            if(inputOldEmail !== user.email) {
-                                console.log("not same mail")
-                                return (<Alert severity="error">Old email isn't the same.</Alert>)
-                            }
-                            api.patch('/users/@me', {
-                                "email": inputNewEmail,
-                                "password": inputPassword
-                            }, {
-                                headers: {
-                                    "authorization": 'Bearer ' + sessionStorage.getItem('token')
-                                }
-                            }).then(() => {
-                                setInputPassword(null)
-                                setInputOldEmail(null)
-                                setInputNewEmail(null)
-                                setInputUsername(null)
-                            })
-                        }}
-                        closeHandler={() => setIsPopupEmail(false)}
-                    >
-                            <div className="inputContainer">
-                                <p className="infoTitle">Old Email</p>
-                                <input 
-                                    className="infoInput"
-                                    type="email"
-                                    placeholder="Enter your old Email."
-                                    onChange={(e) => {
-                                        setInputOldEmail(e.target.value)
-                                    }}
-                                />
+                        </div>
+                        <p className="itemTitle">Email</p>
+                        <p>{ isObscuredMail ? obscuredMail : user.email } <small 
+                                onClick={() => setIsObscuredMail(!isObscuredMail)} 
+                                className="showEmail"
+                            >{
+                                isObscuredMail ? "Show" : "Hide"
+                            }</small>
+                        </p>
+                        {user.bio.length > 0 && (
+                            <div className="bio">
+                                <span className="bioTitle">bio</span>
+                                <span className="bioText">{user.bio}</span>
                             </div>
-                            <div className="inputContainer">
-                                <p className="infoTitle">Password</p>
-                                <input 
-                                    className="infoInput"
-                                    type="password"
-                                    placeholder="Enter your Password."
-                                    onChange={(e) => {
-                                        setInputPassword(e.target.value)
-                                    }}
-                                />
-                            </div>
-                            <div className="inputContainer">
-                                <p className="infoTitle">New Email</p>
-                                <input 
-                                    className="infoInput"
-                                    type="email"
-                                    placeholder="Enter your new Email."
-                                    onChange={(e) => {
-                                        setInputNewEmail(e.target.value)
-                                    }}
-                                />
-                            </div>
-                    </PopupMenu>
-                )}
+                        )}
+                    </div>
+                    {/* {profilePosts ? (
+                        <div className="profilePosts">
+
+                        </div>
+                    ) : <span>This user has no posts or the posts are private.</span>} */}
             </div>
             <FollowRequests />
             <Snackbar variant="filled" open={isFirstOpen} autoHideDuration={6000} onClose={() => setIsFirstOpen(false)}>

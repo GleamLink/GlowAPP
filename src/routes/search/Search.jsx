@@ -24,7 +24,7 @@ function Search(props) {
 
     return (
         <>
-            <NavBar socket={props.socket} />
+            <NavBar />
             <div className="searchPage">
                 <input 
                     className="searchInput"
@@ -32,10 +32,11 @@ function Search(props) {
                     placeholder="Search"
                     onChange={handleChange}
                 />
-                
-                {search.length && search.map((value, key) => {
-                    return <SearchUser user={value} key={value.id} />
-                })}
+
+                {search.length ? search.map((value, key) => {
+                    return <SearchUser user={value} props={props} />
+                }) : null}
+
 
                 {error && (
                     <Snackbar variant="filled" open={error} autoHideDuration={6000} onClose={() => setError(null)}>

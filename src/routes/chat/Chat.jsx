@@ -1,20 +1,13 @@
 import "./_chat.scss"
 import NavBar from "../../components/navbar/NavBar"
 import { useEffect, useRef, useState } from "preact/hooks";
-import { api, getUser } from "../../Utils/Common";
+import { api } from "../../Utils/Common";
 import Conversation from "../../components/conversations/Conversations";
 import Message from "../../components/message/Message";
-import ChatOnline from "../../components/chatOnline/ChatOnline";
-import axios from "axios";
 
 // Icons
-import { EmojiEmotions } from '@mui/icons-material';
 
-import { io } from "socket.io-client"
-import { sendSocketMessage } from "../../Utils/SocketIO.js";
-import { Skeleton } from "@mui/material";
-
-function Chat(props) {
+function Chat({socket}) {
 
     const [loading, setLoading] = useState(true)
     const [msgLoading, setMsgLoading] = useState(false)
@@ -34,15 +27,7 @@ function Chat(props) {
 
     const scrollRef = useRef()
 
-    const convId = props.match.params.convId || null
-    
-    const [socket, setSocket] = useState(io('https://ws.glowapp.eu/'));
-
     const execUseEffects = () => {
-
-        useEffect(() => {
-            setSocket(io('https://ws.glowapp.eu/'))
-        }, []);
 
         useEffect(() => {
             socket.on("getMessage", data => {
@@ -58,14 +43,6 @@ function Chat(props) {
             arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
             setMessages(prev => [...prev, arrivalMessage])
         }, [arrivalMessage, currentChat])
-    
-        useEffect(() => {
-            if(user === null) return
-            socket?.emit("addUser", user.id)
-            socket?.on('getUsers', users => {
-                setOnlineUsers(users)
-            })
-        }, [user])
     
         useEffect(async () => {
             await api.get('/users/@me', {

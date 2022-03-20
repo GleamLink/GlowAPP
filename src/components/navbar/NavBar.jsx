@@ -21,16 +21,29 @@ import { useEffect, useState } from "preact/hooks";
 import { Divider, Drawer, IconButton, SwipeableDrawer } from "@mui/material";
 import { ChevronLeft, Notifications } from "@mui/icons-material";
 
+import { io } from "socket.io-client"
+
 
 function NavBar(props) {
 
     const [isResponsiveNavbarOpen, setNavbarOpen] = useState(false)
     const [isAdmin, setAdmin] = useState(false)
+    const [notif, setNotif] = useState([])
 
     const handleLogout = () => {
         removeUserSession()
         window.location.reload(false)
     }
+
+    const socket = io("https://ws.glowapp.eu")
+
+    useEffect(() => {
+        socket.on("getNotif", data => {
+            setNotif(prev => [...prev, data])
+        })
+    }, [socket])
+
+    console.log(notif)
 
     useEffect(() => {
         try {

@@ -4,7 +4,7 @@ import "./_home.scss";
 import { format } from 'timeago.js'
 
 // Material Icons
-import { Publish, ThumbUpOffAlt, ThumbUpAlt } from '@mui/icons-material';
+import { Send, UploadFile, ThumbUpOffAlt, ThumbUpAlt } from '@mui/icons-material';
 
 import { api } from "../../Utils/Common";
 import { useEffect, useState } from "preact/hooks";
@@ -16,6 +16,8 @@ function Home() {
 
     const [postInput, setPostInput] = useState('')
     const [posts, setPosts] = useState([])
+
+    const [followRequests, setFollowRequests] = useState([])
 
     const [isLiked, setIsLiked] = useState(false)
     
@@ -37,6 +39,16 @@ function Home() {
         }).then(res => {
             setPosts(res.data)
         })
+    }, [])
+
+    useEffect(() => {
+        api.get("/users/@me/followers/requests", {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        }).then(res => {
+            setFollowRequests(res.data)
+        }).catch(err => console.log(err))
     }, [])
 
     const createPostHandler = (e) => {
@@ -61,6 +73,13 @@ function Home() {
         <div className="home">
             <NavBar />
             <div className="homePage">
+                <div className="leftPage">
+                    {followRequests.map((val, key) => {
+                        <div className="request">
+                            <div className="username">{val.requesterId}</div>
+                        </div>
+                    })}
+                </div>
                 <div className="centerPage">
                     <div className="sendPost">
                         <input
@@ -70,8 +89,9 @@ function Home() {
                             onChange={e => setPostInput(e.target.value)}
                             onKeyDown={createPostHandler}
                         />
+                        <UploadFile className="icon icon2" />
                         <div className="vLine" /> {/* Vertical line separator */}
-                        <Publish className="icon" title="Hey" onClick={createPostHandler} />
+                        <Send className="icon" title="Hey" onClick={createPostHandler} />
                     </div>
                     <div className="postsContainer">
                         {posts.map((val, key) => {
@@ -86,6 +106,7 @@ function Home() {
                                             
                                         </div>
                                         {val.description && <p>{val.description}</p>}
+                                        {val.image && <img width={400} src={"https://forest.glowapp.eu/assets/posts/" + val.image} />}
                                         <hr />
                                         <div className="opinion">
                                             {isLiked ? 
@@ -98,6 +119,9 @@ function Home() {
                                 )
                         })}
                     </div>
+                    
+                </div>
+                <div className="rightPage">
                     
                 </div>
                 

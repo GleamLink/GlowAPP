@@ -1,5 +1,102 @@
-.title {
-    margin-bottom: 20px;
+.profilePage {
+    position: relative;
+    margin: auto;
+    width: 75%;
+    height: calc(100vh);
+    .profileInfo {
+        position: relative;
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 20px;
+        top: 20px;
+        // height: 20%;
+        .top {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .avatarContainer {
+                width: 150px;
+                height: 150px;
+                position: relative;
+                .avatarInput {
+                    z-index: 1;
+                    width: inherit;
+                    position: absolute;
+                    width: 150px;
+                    height: 150px;
+                    text-indent: -999em;
+                }
+                .hide {
+                    display: flex;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(0, 0, 0, 0.750);
+                    transition: .7s;
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                    align-items: center;
+                    p {
+                        font-size: 12px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    
+                }
+                .avatarInput:hover {
+                    cursor: pointer;
+                }
+                .avatar {
+                    height: 150px;
+                    width: 150px;
+                }
+            }
+            // .avatar {
+            //     height: 150px;
+            //     width: 150px;
+            // }
+            .topRight {
+                display: flex;
+                flex-direction: column;
+                margin-left: 20px;
+                .followBtn {
+                    position: absolute;
+                    right: 20px;
+                    padding: 5px;
+                    background-color: #b22222;
+                    border: none;
+                    color: white;
+                    border-radius: 10px;
+                }
+                .followBtn:hover {
+                    cursor: pointer;
+                }
+                .username {
+                    font-weight: 800;
+                    font-size: 30px;
+                }
+                .followersFollowing {
+
+                }
+            }
+        }
+        .showEmail {
+            color: rgb(0, 162, 255);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .bio {
+            display: flex;
+            flex-direction: column;
+            .bioTitle {
+                font-weight: 800;
+                font-size: 25px;
+                color: rgb(146, 146, 146);
+                font-variant: small-caps;
+            }
+        }
+    }
 }
 
 .profile {
